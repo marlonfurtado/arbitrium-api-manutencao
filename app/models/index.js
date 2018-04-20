@@ -40,6 +40,7 @@ db.days = require('./day.js')(sequelize, Sequelize);
 db.activity_punctuations = require('./activity_punctuation')(sequelize, Sequelize);
 db.hours = require('./hour.js')(sequelize, Sequelize);
 db.questions = require('./question.js')(sequelize, Sequelize);
+db.results = require('./result.js')(sequelize, Sequelize);
 
 //Relations in Cascade
 db.researchers.hasMany(db.interviews);
@@ -64,5 +65,11 @@ db.activity_punctuations.belongsTo(db.activities);
 db.questions.hasMany(db.hours);
 db.questions.belongsTo(db.interviews);
 db.questions.belongsTo(db.events);
+
+//Results relations
+db.interviews.hasOne(db.results);
+db.results.belongsTo(db.interviews);
+db.hours.hasOne(db.results);
+db.results.belongsTo(db.hours);
 
 module.exports = db;
