@@ -1,4 +1,5 @@
 --Drop all tables of Arbitrium Project, considering relation order
+drop table results;
 drop table hours;
 drop table questions;
 drop table days;

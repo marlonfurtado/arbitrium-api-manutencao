@@ -1,31 +1,31 @@
-module.exports = function(sequelize, Sequelize) {
+module.exports = function(sequelize, DataTypes) {
     var Event = sequelize.define('event', {
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
         description: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             notEmpty: true
         },
         family_points: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             notEmpty: true
         },
         work_points: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             notEmpty: true
         },
         created_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         },
         updated_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         }
     }, {
         underscored: true
