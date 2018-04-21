@@ -13,10 +13,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             notEmpty: true
         },
-        is_next_week: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: true
-        },
         created_at: {
             type: DataTypes.DATE,
             allowNull: true,
