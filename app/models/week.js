@@ -1,27 +1,31 @@
-module.exports = function(sequelize, Sequelize) {
+module.exports = function(sequelize, DataTypes) {
     var Week = sequelize.define('week', {
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
         schedule_id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         week_number: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             notEmpty: true
         },
+        is_next_week: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+        },
         created_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         },
         updated_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         }
     }, {
         underscored: true

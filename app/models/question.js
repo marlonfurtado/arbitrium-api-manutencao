@@ -1,39 +1,39 @@
-module.exports = function(sequelize, Sequelize) {
+module.exports = function(sequelize, DataTypes) {
     var Question = sequelize.define('question', {
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
         interview_id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         event_id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         question_appears_datetime: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true
         },
         answered_question_datetime: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true
         },
         choice: {
-            type: Sequelize.ENUM('F', 'W'),
+            type: DataTypes.ENUM('F', 'W'),
             allowNull: true
         },
         created_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         },
         updated_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         }
     }, {
         underscored: true

@@ -1,31 +1,31 @@
-module.exports = function(sequelize, Sequelize) {
+module.exports = function(sequelize, DataTypes) {
     var Interview = sequelize.define('interview', {
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
         researcher_id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         initial_date: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             notEmpty: true
         },
         conclusion_date: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true
         },
         created_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         },
         updated_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         }
     }, {
         underscored:true
