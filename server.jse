@@ -21,16 +21,16 @@ app.use(cors())
 models.sequelize.sync().then(function () {
     console.log("Arbitrium database is ready.")
     var db = require('./app/models/index');
-    var ActivityModel = require('./app/models/activity.js')(db.sequelize, db.Sequelize);
+    var AcitivityModel = require('./app/models/activity.js')(db.sequelize, db.Sequelize);
     var activities = require('./app/config/db/activities')
 
     console.log('populate database with activities...')
     activities.forEach(activity => {
-        ActivityModel.destroy({
+        AcitivityModel.destroy({
             where: { id: activity.id }
         })
 
-        ActivityModel.create(activity)
+        AcitivityModel.create(activity)
     });
 
 }).catch(function (err) {
@@ -46,7 +46,6 @@ app.get('/', function(req, res) {
 require('./app/routes/activity.js')(app);
 require('./app/routes/interview.js')(app);
 require('./app/routes/question.js')(app);
-require('./app/routes/event.js')(app);
 // Start server
 app.listen(3000, function(err) {
     console.log("Server is listening on port 3000");
