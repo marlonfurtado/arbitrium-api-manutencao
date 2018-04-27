@@ -2,7 +2,7 @@
     "development": {
         "username": "root",
         "password": "root",
-        "database": "arbitrium_database",
+        "database": "arbitrium",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },

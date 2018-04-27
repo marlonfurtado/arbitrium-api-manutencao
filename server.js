@@ -4,6 +4,7 @@ var session = require('express-session'); //
 var bodyParser = require('body-parser');
 var env = require('dotenv').load();
 var models = require("./app/models");
+var cors = require('cors')
 var app = express();
 
 //For BodyParser
@@ -13,10 +14,26 @@ app.use(bodyParser.json());
 app.use(session({secret:'keyboard cat', resave:true, saveUninitialized:true}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(cors())
+
 //Sync database
-models.sequelize.sync().then(function() {
+models.sequelize.sync().then(function () {
     console.log("Arbitrium database is ready.")
-}).catch(function(err) {
+    var db = require('./app/models/index');
+    var AcitivityModel = require('./app/models/activity.js')(db.sequelize, db.Sequelize);
+    var activities = require('./app/config/db/activities')
+
+    console.log('populate database with activities...')
+    activities.forEach(activity => {
+        AcitivityModel.destroy({
+            where: { id: activity.id }
+        })
+
+        AcitivityModel.create(activity)
+    });
+
+}).catch(function (err) {
     console.log(err, "Something went wrong while creating arbitrium_database.")
 });
 
