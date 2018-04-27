@@ -24,7 +24,8 @@
 `cd api`
 
 - Adicionar senha do MySQL local ao servidor:
-> Abrir arquivo app/config/sequelize_config.json e adicionar a senha na sessão de "development", campo "password".
+> Abrir arquivo app/config/sequelize_config.json e adicionar a senha do MySQL na sessão de "development", campo "password".
+> Se conecte no MySQL e crie a database do arbitrium: `create database arbitrium` e clique no botão em forma de raio mais acima. 
 
 - Instale as dependências:  
 `npm install`
@@ -34,6 +35,7 @@
 
 - Acesse no navegador:  
 `http://localhost:3000`
+
 
 > Os comandos acima iniciam apenas o *servidor* da aplicação.  
 > Para uma experiência completa inicie também o Frontend, saiba mais [aqui](http://www.tools.ages.pucrs.br/arbitrium/web).
