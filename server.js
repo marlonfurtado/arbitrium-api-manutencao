@@ -45,7 +45,7 @@ app.get('/', function(req, res) {
 // Other routes
 require('./app/routes/activity.js')(app);
 require('./app/routes/interview.js')(app);
-
+require('./app/routes/event.js')(app);
 // Start server
 app.listen(3000, function(err) {
     console.log("Server is listening on port 3000");
