@@ -43,4 +43,68 @@ exports.update = function(req, res) {
         });
     });
 
+
+exports.create = function(req, res) {
+    // Validates mandatory parameters
+    var errors = {};
+    var body = req.body;
+    if(!body.interview_id)
+        errors['interview_id'] = 'This field is required.'
+    if(!body.event_id)
+        errors['event_id'] = 'This field is required.'
+
+    if (Object.keys(errors).length) {
+        return res.status(400).send({
+            'errors': errors
+        });
+    }
+
+    try {
+        var questionDateTime = Date.parse(body.question_appears_datetime);
+        var answeredDateTime = Date.parse(body.answered_question_datetime);
+        var choice = body.choice;
+
+        if (choice != "W" && choice != "F") {
+            return res.status(400).send({
+                'errors': 'Only "W" (Work) and "F" (Family) options are valid foi choice field.'
+            });
+        }
+
+        var question = new QuestionModel({
+            interview_id: body.interview_id,
+            event_id: body.event_id,
+            question_appears_datetime: questionDateTime,
+            answered_question_datetime: answeredDateTime,
+            choice: choice
+        });
+
+        question.save()
+        .then(function(result) {
+            res.send(result);
+        }).catch(function(err) {
+            res.status(500).send({
+                'errors': err.message
+            });
+        }); 
+    } catch(err) {
+        res.status(500).send({
+            'errors': err.message
+        });
+    }
+};
+
+exports.findAll = function(req, res) {
+    //Do nothing;
+};
+
+exports.findOne = function(req, res) {
+    //Do nothing;
+};
+
+exports.update = function(req, res) {
+    //Do nothing;
+};
+
+exports.delete = function(req, res) {
+    //Do nothing;
 };
