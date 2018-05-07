@@ -123,9 +123,9 @@ app.get('/', function(req, res) {
 require('./app/routes/activity.js')(app);
 require('./app/routes/question.js')(app);
 require('./app/routes/interview.js')(app);
-require('./app/routes/question.js')(app);
 require('./app/routes/event.js')(app);
 require('./app/routes/week.js')(app);
+require('./app/routes/result.js')(app);
 
 // Start server
 app.listen(3000, function(err) {

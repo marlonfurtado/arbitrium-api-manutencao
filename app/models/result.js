@@ -60,6 +60,16 @@ module.exports = function(sequelize, DataTypes) {
         status_money_bonus: {
             type: DataTypes.INTEGER,
             defaultValue: 0
+        },
+        created_at: {
+            type: DataTypes.DATE,
+            allowNull: true,
+            defaultValue: DataTypes.NOW
+        },
+        updated_at: {
+            type: DataTypes.DATE,
+            allowNull: true,
+            defaultValue: DataTypes.NOW
         }
     }, {
         underscored: true
