@@ -1,1 +1,1 @@
-create database arbitrium_database;
+create database arbitrium;
