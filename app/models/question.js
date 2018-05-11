@@ -11,11 +11,11 @@ module.exports = function(sequelize, DataTypes) {
         },
         event_id: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false //not important on db
         },
         question_appears_datetime: {
             type: DataTypes.DATE,
-            allowNull: true
+            allowNull: true //important on db
         },
         answered_question_datetime: {
             type: DataTypes.DATE,
