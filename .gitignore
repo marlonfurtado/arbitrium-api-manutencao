@@ -3,5 +3,7 @@ node_modules
 package-lock.json
 .env
 app/config/sequelize_config.json
+
 # IDEs ignored files
 .vscode
+*.swp

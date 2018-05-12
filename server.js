@@ -44,6 +44,7 @@ app.get('/', function(req, res) {
 
 // Other routes
 require('./app/routes/activity.js')(app);
+require('./app/routes/question.js')(app);
 require('./app/routes/interview.js')(app);
 require('./app/routes/question.js')(app);
 require('./app/routes/event.js')(app);
