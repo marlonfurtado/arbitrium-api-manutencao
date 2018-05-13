@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(500),
             notEmpty: true
         },
         family_points: {

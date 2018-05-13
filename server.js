@@ -21,17 +21,135 @@ app.use(cors())
 models.sequelize.sync().then(function () {
     console.log("Arbitrium database is ready.")
     var db = require('./app/models/index');
+    var EventModel = require('./app/models/event.js')(db.sequelize, db.Sequelize);
+    var events = require('./app/config/db/events')
     var ActivityModel = require('./app/models/activity.js')(db.sequelize, db.Sequelize);
     var activities = require('./app/config/db/activities')
+    var ActivityPunctuationModel = require('./app/models/activity_punctuation.js')(db.sequelize, db.Sequelize);
+    var activity_punctuations = require('./app/config/db/activity_punctuations')
+    var InterviewModel = require('./app/models/interview.js')(db.sequelize, db.Sequelize);
+    var interviews = require('./app/config/db/interviews')
+    var ScheduleModel = require('./app/models/schedule.js')(db.sequelize, db.Sequelize);
+    var schedules = require('./app/config/db/schedules')
+    var WeekModel = require('./app/models/week.js')(db.sequelize, db.Sequelize);
+    var weeks = require('./app/config/db/weeks')
+    var DayModel = require('./app/models/day.js')(db.sequelize, db.Sequelize);
+    var days = require('./app/config/db/days')
+    var QuestionModel = require('./app/models/question.js')(db.sequelize, db.Sequelize);
+    var questions = require('./app/config/db/questions')
+    var HourModel = require('./app/models/hour.js')(db.sequelize, db.Sequelize);
+    var hours = require('./app/config/db/hours')
 
-    console.log('populate database with activities...')
+    console.log("Cleaning database before insert...")
+
+    questions.forEach(question => {
+        QuestionModel.destroy({
+            where: { id: question.id }
+        })
+
+    });
+
+    days.forEach(day => {
+        DayModel.destroy({
+            where: { id: day.id }
+        })
+    });
+
+
+    weeks.forEach(week => {
+        WeekModel.destroy({
+            where: { id: week.id }
+        })
+
+    });
+
+
+    schedules.forEach(schedule => {
+    ScheduleModel.destroy({
+            where: { id: schedule.id }
+       })
+    });
+
+
+    interviews.forEach(interview => {
+        InterviewModel.destroy({
+            where: { id: interview.id }
+        })
+    });
+
+
+    activity_punctuations.forEach(activity_punctuation => {
+        ActivityPunctuationModel.destroy({
+            where: { id: activity_punctuation.id }
+        })
+    });
+
+
     activities.forEach(activity => {
         ActivityModel.destroy({
             where: { id: activity.id }
-        })
+       })
+    });
 
+
+    events.forEach(event => {
+        EventModel.destroy({
+            where: { id: event.id }
+        })
+    });
+
+
+  //  hours.forEach(hour => {
+  //      HourModel.destroy({
+  //      where: { id: hour.id }
+  //     })
+  // });
+
+    console.log('populate database with events...')
+    events.forEach(event => {
+        EventModel.create(event)
+    });
+
+    console.log('populate database with activities...')
+    activities.forEach(activity => {
         ActivityModel.create(activity)
     });
+
+    console.log('populate database with activity punctuations...')
+    activity_punctuations.forEach(activity_punctuation => {
+        ActivityPunctuationModel.create(activity_punctuation)
+    });
+
+    console.log('populate database with interviews...')
+    interviews.forEach(interview => {
+           InterviewModel.create(interview)
+    });
+
+    console.log('populate database with schedules...')
+    schedules.forEach(schedule => {
+          ScheduleModel.create(schedule)
+    });
+
+    console.log('populate database with weeks...')
+    weeks.forEach(week => {
+        WeekModel.create(week)
+    });
+
+    console.log('populate database with days...')
+    days.forEach(day => {
+        DayModel.create(day)
+    });
+
+    console.log('populate database with questions...')
+    questions.forEach(question => {
+        QuestionModel.create(question)
+    });
+
+//    console.log('populate database with hours...')
+//    hours.forEach(hour => {
+//        HourModel.create(hour)
+//   });
+
 
 }).catch(function (err) {
     console.log(err, "Something went wrong while creating arbitrium_database.")

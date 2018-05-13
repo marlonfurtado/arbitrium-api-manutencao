@@ -41,7 +41,8 @@ exports.update = function(req, res) {
         return res.status(500).send({
             message: "Error updating question with ID " + req.params.questionId + "."
         });
-    });
+    })
+};
 
 
 exports.create = function(req, res) {
