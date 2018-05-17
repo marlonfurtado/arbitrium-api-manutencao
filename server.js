@@ -42,6 +42,8 @@ models.sequelize.sync().then(function () {
 
     console.log("Cleaning database before insert...")
 
+    
+
     questions.forEach(question => {
         QuestionModel.destroy({
             where: { id: question.id }
@@ -99,57 +101,14 @@ models.sequelize.sync().then(function () {
     });
 
 
-  //  hours.forEach(hour => {
-  //      HourModel.destroy({
-  //      where: { id: hour.id }
-  //     })
-  // });
-
-    console.log('populate database with events...')
-    events.forEach(event => {
-        EventModel.create(event)
-    });
-
-    console.log('populate database with activities...')
-    activities.forEach(activity => {
-        ActivityModel.create(activity)
-    });
-
-    console.log('populate database with activity punctuations...')
-    activity_punctuations.forEach(activity_punctuation => {
-        ActivityPunctuationModel.create(activity_punctuation)
-    });
-
-    console.log('populate database with interviews...')
-    interviews.forEach(interview => {
-           InterviewModel.create(interview)
-    });
-
-    console.log('populate database with schedules...')
-    schedules.forEach(schedule => {
-          ScheduleModel.create(schedule)
-    });
-
-    console.log('populate database with weeks...')
-    weeks.forEach(week => {
-        WeekModel.create(week)
-    });
-
-    console.log('populate database with days...')
-    days.forEach(day => {
-        DayModel.create(day)
-    });
-
-    console.log('populate database with questions...')
-    questions.forEach(question => {
-        QuestionModel.create(question)
-    });
-
-//    console.log('populate database with hours...')
-//    hours.forEach(hour => {
-//        HourModel.create(hour)
-//   });
-
+    EventModel.bulkCreate(events).then(
+    ActivityModel.bulkCreate(activities)).then(
+    InterviewModel.bulkCreate(interviews)).then(
+    ScheduleModel.bulkCreate(schedules)).then(
+    WeekModel.bulkCreate(weeks)).then(
+    DayModel.bulkCreate(days)).then(
+    QuestionModel.bulkCreate(questions)).then(
+    HourModel.bulkCreate(hours))
 
 }).catch(function (err) {
     console.log(err, "Something went wrong while creating arbitrium_database.")

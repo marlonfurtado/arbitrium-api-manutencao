@@ -7,3 +7,5 @@ app/config/sequelize_config.json
 # IDEs ignored files
 .vscode
 *.swp
+
+vim.exe.stackdump
