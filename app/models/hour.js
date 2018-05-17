@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         question_id: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         activity_id: {
             type: DataTypes.INTEGER,
