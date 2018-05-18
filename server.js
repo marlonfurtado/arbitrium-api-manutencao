@@ -111,7 +111,7 @@ models.sequelize.sync().then(function () {
     HourModel.bulkCreate(hours))
 
 }).catch(function (err) {
-    console.log(err, "Something went wrong while creating arbitrium_database.")
+    console.log(err, "Something went wrong while creating arbitrium database.")
 });
 
 // Default route
@@ -125,6 +125,8 @@ require('./app/routes/question.js')(app);
 require('./app/routes/interview.js')(app);
 require('./app/routes/question.js')(app);
 require('./app/routes/event.js')(app);
+require('./app/routes/week.js')(app);
+
 // Start server
 app.listen(3000, function(err) {
     console.log("Server is listening on port 3000");
