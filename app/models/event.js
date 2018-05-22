@@ -26,6 +26,15 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DATE,
             allowNull: true,
             defaultValue: DataTypes.NOW
+        },
+        op_work: {
+            type: DataTypes.STRING(500),
+            notEmpty: true
+
+        },
+        op_family: {
+            type: DataTypes.STRING(500),
+            notEmpty: true
         }
     }, {
         underscored: true
