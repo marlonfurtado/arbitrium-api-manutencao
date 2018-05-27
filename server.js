@@ -39,9 +39,19 @@ models.sequelize.sync().then(function () {
     var questions = require('./app/config/db/questions')
     var HourModel = require('./app/models/hour.js')(db.sequelize, db.Sequelize);
     var hours = require('./app/config/db/hours')
+    var ResultModel = require('./app/models/result.js')(db.sequelize, db.Sequelize);
+    var results = require('./app/config/db/results')
+
 
     console.log("Cleaning database before insert...")
+    
 
+    results.forEach(result => {
+        ResultModel.destroy({
+            where: { id: result.id }
+        })
+
+    });
     
 
     questions.forEach(question => {
@@ -50,6 +60,13 @@ models.sequelize.sync().then(function () {
         })
 
     });
+
+    //To-do: standardize all deletions, Hour needed to be in bulk because of timeout problems
+    var Op = db.Sequelize.Op
+    HourModel.destroy({
+        where: { id: {[Op.between]: [1, 1344]} }
+    });
+   
 
     days.forEach(day => {
         DayModel.destroy({
@@ -103,12 +120,14 @@ models.sequelize.sync().then(function () {
 
     EventModel.bulkCreate(events).then(
     ActivityModel.bulkCreate(activities)).then(
+    ActivityPunctuationModel.bulkCreate(activity_punctuations)).then(
     InterviewModel.bulkCreate(interviews)).then(
     ScheduleModel.bulkCreate(schedules)).then(
     WeekModel.bulkCreate(weeks)).then(
     DayModel.bulkCreate(days)).then(
     QuestionModel.bulkCreate(questions)).then(
-    HourModel.bulkCreate(hours))
+    HourModel.bulkCreate(hours)).then(
+    ResultModel.bulkCreate(results))
 
 }).catch(function (err) {
     console.log(err, "Something went wrong while creating arbitrium database.")
@@ -126,6 +145,7 @@ require('./app/routes/interview.js')(app);
 require('./app/routes/event.js')(app);
 require('./app/routes/week.js')(app);
 require('./app/routes/result.js')(app);
+require('./app/routes/report.js')(app);
 
 // Start server
 app.listen(3000, function(err) {
