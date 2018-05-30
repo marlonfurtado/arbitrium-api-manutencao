@@ -9,7 +9,11 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        occurrences_number: {
+        initial_occurences_number: {
+            type: DataTypes.INTEGER,
+            notEmpty: true
+        },
+        final_occurences_number: {
             type: DataTypes.INTEGER,
             notEmpty: true
         },
@@ -29,20 +33,8 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             notEmpty: true
         },
-        family_bonus_points: {
-            type: DataTypes.INTEGER,
-            notEmpty: true
-        },
-        health_bonus_points: {
-            type: DataTypes.INTEGER,
-            notEmpty: true
-        },
-        money_bonus_points: {
-            type: DataTypes.INTEGER,
-            notEmpty: true
-        },
-        work_bonus_points: {
-            type: DataTypes.INTEGER,
+        points_type: {
+            type: DataTypes.STRING,
             notEmpty: true
         },
         created_at: {
