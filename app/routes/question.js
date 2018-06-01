@@ -6,9 +6,9 @@ module.exports = function(app){
     app.put('/questions/:questionId', questionController.update);
 
     // Create a new question
-    app.post('/question', questionController.create);
+    app.post('/questions', questionController.create);
 
-    // Retrieve all questioons
+    // Retrieve all questions
 
     // Retrive a single question
 

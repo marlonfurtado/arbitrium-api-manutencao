@@ -70,7 +70,7 @@ exports.create = function(req, res) {
                 'errors': 'Only "W" (Work) and "F" (Family) options are valid foi choice field.'
             });
         }
-
+        console.log('Valor de event_id: ' + body.event_id);
         var question = new QuestionModel({
             interview_id: body.interview_id,
             event_id: body.event_id,
