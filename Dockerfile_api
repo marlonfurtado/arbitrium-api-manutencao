@@ -1,0 +1,18 @@
+FROM ubuntu:16.04
+RUN apt-get update && apt-get upgrade -y
+
+# Install node and git
+RUN apt-get install -y curl git-core build-essential wget
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN apt-get install -y nodejs
+
+# Get code
+ARG GIT_BRANCH=dev
+RUN git clone -b ${GIT_BRANCH} http://201.54.139.88/arbitrium/api.git
+
+# Install project dependencies
+RUN cd api && npm install
+# Cannot start api container before database is ready. This holds it for a while
+RUN cd api && wget https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh -O wait-for-it.sh && chmod +x wait-for-it.sh
+WORKDIR /api
+CMD npm start

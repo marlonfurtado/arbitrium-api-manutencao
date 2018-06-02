@@ -44,21 +44,18 @@ models.sequelize.sync().then(function () {
 
 
     console.log("Cleaning database before insert...")
-    
+
 
     results.forEach(result => {
         ResultModel.destroy({
             where: { id: result.id }
         })
-
     });
-    
 
     questions.forEach(question => {
         QuestionModel.destroy({
             where: { id: question.id }
         })
-
     });
 
     //To-do: standardize all deletions, Hour needed to be in bulk because of timeout problems
@@ -66,14 +63,12 @@ models.sequelize.sync().then(function () {
     HourModel.destroy({
         where: { id: {[Op.between]: [1, 1344]} }
     });
-   
 
     days.forEach(day => {
         DayModel.destroy({
             where: { id: day.id }
         })
     });
-
 
     weeks.forEach(week => {
         WeekModel.destroy({
@@ -82,9 +77,8 @@ models.sequelize.sync().then(function () {
 
     });
 
-
     schedules.forEach(schedule => {
-    ScheduleModel.destroy({
+       ScheduleModel.destroy({
             where: { id: schedule.id }
        })
     });
