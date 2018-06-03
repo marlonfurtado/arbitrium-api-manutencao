@@ -7,8 +7,8 @@ module.exports = function(app) {
     // Retrieve all results
     //app.get('/results', resultController.findAll);
 
-    // Recalculate all results
-    app.get('/result/interview/:interviewId', resultController.findOne);
+    // Recalculate all results and retrive its result
+    app.get('/result/interview/:interviewId', resultController.calcResults);
 
     // Retrive a single result with result id
     // app.get('/result/:resultId', resultController.findOne); //No need
