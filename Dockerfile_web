@@ -8,9 +8,9 @@ RUN apt-get install -y nodejs
 
 # Get code
 ARG GIT_BRANCH=dev
-RUN git clone -b ${GIT_BRANCH} http://201.54.139.88/arbitrium/web.git
+RUN git clone -b ${GIT_BRANCH} http://10.32.223.8/arbitrium/web.git
 
 # Install project dependencies
 RUN cd web && npm install
 WORKDIR /web
-CMD npm start
+CMD git pull && npm start

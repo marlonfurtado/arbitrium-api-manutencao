@@ -142,6 +142,6 @@ require('./app/routes/result.js')(app);
 require('./app/routes/report.js')(app);
 
 // Start server
-app.listen(3000, function(err) {
+app.listen(3004, function(err) {
     console.log("Server is listening on port 3000");
 });

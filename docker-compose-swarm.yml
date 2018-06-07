@@ -28,10 +28,10 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-    command: ["./wait-for-it.sh", "database:3306", "--", "npm", "start"]
+    command: ["./wait-for-it.sh", "-t", "0", "database:3306", "--", "npm", "start"]
   web:
     image: arbitrium_web:latest
     depends_on:
       - "api"
     ports:
-      - "8080:8080"
+      - "3003:8080"
