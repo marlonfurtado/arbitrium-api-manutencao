@@ -41,7 +41,7 @@ module.exports =[
   },
   {
     "id": 6,
-    "event_id": 47,
+    "event_id": 42,
     "interview_id": 1,
     "question_appears_datetime": "2018-01-01 08:16:30",
     "answered_question_datetime": "2018-01-01 08:18:00",
@@ -105,7 +105,7 @@ module.exports =[
   },
   {
     "id": 14,
-    "event_id": 48,
+    "event_id": 44,
     "interview_id": 2,
     "question_appears_datetime": "2018-02-01 09:06:36",
     "answered_question_datetime": "2018-02-01 09:08:06",
@@ -113,7 +113,7 @@ module.exports =[
   },
   {
     "id": 15,
-    "event_id": 47,
+    "event_id": 42,
     "interview_id": 2,
     "question_appears_datetime": "2018-02-01 09:09:54",
     "answered_question_datetime": "2018-02-01 09:11:24",
@@ -129,7 +129,7 @@ module.exports =[
   },
   {
     "id": 17,
-    "event_id": 49,
+    "event_id": 41,
     "interview_id": 2,
     "question_appears_datetime": "2018-02-01 09:16:30",
     "answered_question_datetime": "2018-02-01 09:18:00",
