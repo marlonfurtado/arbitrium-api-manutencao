@@ -1,5 +1,5 @@
 var db = require('../models/index');
-var QuestionModel = require('../models/activity.js')(db.sequelize,db.Sequelize);
+var QuestionModel = require('../models/question.js')(db.sequelize,db.Sequelize);
 
 //Need the put function, so i need to create the update function
 exports.update = function(req, res) {
@@ -9,14 +9,14 @@ exports.update = function(req, res) {
         });
     }
 
-    if(!req.body.description) {
+    if(!req.body.choice) {
         return res.status(400).send({
-            message: "question's description can not be empty"
+            message: "question's choice can not be empty"
         });
     }
 
     QuestionModel.update(
-        { description: req.body.description },
+        { choice: req.body.choice },
         { where: { id: req.params.questionId } }
     ).then(function(updateStatus) {
         if(updateStatus[0] === 0) {
@@ -99,10 +99,6 @@ exports.findAll = function(req, res) {
 };
 
 exports.findOne = function(req, res) {
-    //Do nothing;
-};
-
-exports.update = function(req, res) {
     //Do nothing;
 };
 
