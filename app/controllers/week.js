@@ -96,7 +96,7 @@ async function postValidations(scheduleId, weekNumber, days) {
                         if(!validationErrors && 0 === validationErrors.length) {
                             if(!hour.activity_id) {
                                 validationErrors= "Hour activity_id can not be empty."
-                            } else if (!hour.hour_number) {
+                            } else if (hour.hour_number !== 0 && !hour.hour_number) {
                                 validationErrors= "Hour hour_number can not be empty."
                             }
                         }
