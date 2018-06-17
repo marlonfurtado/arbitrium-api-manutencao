@@ -1,5 +1,5 @@
-var db = require('../models/index');
-var QuestionModel = require('../models/question.js')(db.sequelize,db.Sequelize);
+const db = require('../models/index');
+const QuestionModel = require('../models/question.js')(db.sequelize,db.Sequelize);
 
 //Need the put function, so i need to create the update function
 exports.update = function(req, res) {
@@ -7,16 +7,30 @@ exports.update = function(req, res) {
         return res.status(400).send({
             message: "question's ID cannot be empty"
         });
-    }
-
-    if(!req.body.choice) {
+    } else if(!req.body.choice) {
         return res.status(400).send({
             message: "question's choice can not be empty"
+        });
+    } else if (req.body.choice != "W" && req.body.choice != "F") {
+        return res.status(400).send({
+            message: 'Only "W" (Work) and "F" (Family) options are valid for choice field.'
+        });
+    } else if(!req.body.question_appears_datetime) {
+        return res.status(400).send({
+            message: "question's appears time can not be empty"
+        });
+    } else if(!req.body.answered_question_datetime) {
+        return res.status(400).send({
+            message: "question's answered time can not be empty"
         });
     }
 
     QuestionModel.update(
-        { choice: req.body.choice },
+        { 
+            choice: req.body.choice,
+            question_appears_datetime: Date.parse(req.body.question_appears_datetime),
+            answered_question_datetime: Date.parse(req.body.answered_question_datetime)
+        },
         { where: { id: req.params.questionId } }
     ).then(function(updateStatus) {
         if(updateStatus[0] === 0) {
@@ -44,11 +58,10 @@ exports.update = function(req, res) {
     })
 };
 
-
 exports.create = function(req, res) {
     // Validates mandatory parameters
-    var errors = {};
-    var body = req.body;
+    let errors = {};
+    const body = req.body;
     if(!body.interview_id)
         errors['interview_id'] = 'This field is required.'
     if(!body.event_id)
@@ -61,22 +74,10 @@ exports.create = function(req, res) {
     }
 
     try {
-        var questionDateTime = Date.parse(body.question_appears_datetime);
-        var answeredDateTime = Date.parse(body.answered_question_datetime);
-        var choice = body.choice;
-
-        if (choice != "W" && choice != "F") {
-            return res.status(400).send({
-                'errors': 'Only "W" (Work) and "F" (Family) options are valid foi choice field.'
-            });
-        }
         console.log('Valor de event_id: ' + body.event_id);
-        var question = new QuestionModel({
+        const question = new QuestionModel({
             interview_id: body.interview_id,
-            event_id: body.event_id,
-            question_appears_datetime: questionDateTime,
-            answered_question_datetime: answeredDateTime,
-            choice: choice
+            event_id: body.event_id
         });
 
         question.save()
