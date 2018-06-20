@@ -81,11 +81,13 @@ exports.calcResults = async function(req, res) {
         }
 
         await evaluateWeek(resultPoints, activities);
+
+        lastDayId = weekDays[weekDays.length-1].id;
     }
 
     await addQuestionPointsToResultPoints(resultPoints, req.params.interviewId);
     
-    await updateResult(resultPoints, resultId);
+    await updateResult(resultPoints, resultId, lastDayId);
 
     // return the recalculated result
     await ResultModel.findOne({
@@ -247,14 +249,15 @@ async function getLastResultIdByInterviewId(interviewId) {
     return Promise.resolve(resultId[0].id);
 }
 
-async function updateResult(resultPoints, resultId) {
+async function updateResult(resultPoints, resultId, dayId) {
     await ResultModel.update( {
             status_family_activity: resultPoints.familyAcitivity,
             status_family_event: resultPoints.familyEvent,
             status_work_activity: resultPoints.workAcitivity,
             status_work_event: resultPoints.workEvent,
             status_health_activity: resultPoints.healthAcitivity,
-            status_money_activity: resultPoints.moneyAcitivity
+            status_money_activity: resultPoints.moneyAcitivity,
+            day_id: dayId
         },
         {
             where: {
