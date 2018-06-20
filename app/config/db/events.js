@@ -5,7 +5,9 @@ module.exports =[
     "family_points": 15,
     "work_points": 5,
     "op_work": "Ir para o Happy Hour",
-    "op_family": "Ir à Apresentação"
+    "op_family": "Ir à Apresentação",
+    "min_hour": 9,
+    "max_hour": 18
   },
   {
     "id": 2,
@@ -13,8 +15,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 5,
     "op_work": "Fazer Hora Extra",
-    "op_family": "Jantar com a Família"
-
+    "op_family": "Jantar com a Família",
+    "min_hour": 9,
+    "max_hour": 18
   },
   {
     "id": 3,
@@ -22,7 +25,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 10,
     "op_work": "Ir para a Reunião",
-    "op_family": "Leva o filho ao médico"
+    "op_family": "Leva o filho ao médico",
+    "min_hour": 7,
+    "max_hour": 10
   },
   {
     "id": 4,
@@ -30,7 +35,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 5,
     "op_work": "Continuar a Reunião",
-    "op_family": "Atender o telefone"
+    "op_family": "Atender o telefone",
+    "min_hour": 9,
+    "max_hour": 18
   },
   {
     "id": 5,
@@ -38,7 +45,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 5,
     "op_work": "Aceita o Trabalho Extra",
-    "op_family": "Tira as Férias"
+    "op_family": "Tira as Férias",
+    "min_hour": 9,
+    "max_hour": 18
   },
   {
     "id": 6,
@@ -46,7 +55,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 5,
     "op_work": "Avançar o Projeto",
-    "op_family": "Viajar com a Família"
+    "op_family": "Viajar com a Família",
+    "min_hour": 18,
+    "max_hour": 24
   },
   {
     "id": 7,
@@ -54,7 +65,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 5,
     "op_work": "Atende",
-    "op_family": "Retorna Depois"
+    "op_family": "Retorna Depois",
+    "min_hour": 20,
+    "max_hour": 23
   },
   {
     "id": 8,
@@ -62,7 +75,9 @@ module.exports =[
     "family_points": 15,
     "work_points": 10,
     "op_work": "Aceitar a proposta",
-    "op_family": "Recusar a proposta"
+    "op_family": "Recusar a proposta",
+    "min_hour": 18,
+    "max_hour": 24
   },
   {
     "id": 9,
@@ -70,7 +85,9 @@ module.exports =[
     "family_points": 15,
     "work_points": 15,
     "op_work": "Viagem de Negócios",
-    "op_family": "Comemorar aniversário de Casamento"
+    "op_family": "Comemorar aniversário de Casamento",
+    "min_hour": 0,
+    "max_hour": 23
   },
   {
     "id": 10,
@@ -78,7 +95,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 5,
     "op_work": "Terminar Relatório",
-    "op_family": "Jantar com a Família"
+    "op_family": "Jantar com a Família",
+    "min_hour": 14,
+    "max_hour": 18
   },
   {
     "id": 11,
@@ -86,7 +105,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 5,
     "op_work": "Trocar de turno",
-    "op_family": "Não trocar de turno"
+    "op_family": "Não trocar de turno",
+    "min_hour": 7,
+    "max_hour": 24
   },
   {
     "id": 12,
@@ -94,7 +115,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 15,
     "op_work": "Preparar apresentação do projeto",
-    "op_family": "Brincar com o filho"
+    "op_family": "Brincar com o filho",
+    "min_hour": 18,
+    "max_hour": 23
   },
   {
     "id": 13,
@@ -102,7 +125,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 5,
     "op_work": "Vai direto para a reunião",
-    "op_family": "Leva o filho para a casa do amigo"
+    "op_family": "Leva o filho para a casa do amigo",
+    "min_hour": 7,
+    "max_hour": 10
   },
   {
     "id": 14,
@@ -110,7 +135,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 15,
     "op_work": "Investe tempo no trabalho",
-    "op_family": "Investe tempo no relacionamento"
+    "op_family": "Investe tempo no relacionamento",
+    "min_hour": 18,
+    "max_hour": 24
   },
   {
     "id": 15,
@@ -118,7 +145,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 15,
     "op_work": "Fazer especialização",
-    "op_family": "Viajar com a Família"
+    "op_family": "Viajar com a Família",
+    "min_hour": 0,
+    "max_hour": 23
   },
   {
     "id": 16,
@@ -126,7 +155,9 @@ module.exports =[
     "family_points": 15,
     "work_points": 10,
     "op_work": "Evento da Empresa",
-    "op_family": "Evento da Escola"
+    "op_family": "Evento da Escola",
+    "min_hour": 0,
+    "max_hour": 23
   },
   {
     "id": 17,
@@ -134,7 +165,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 15,
     "op_work": "Jantar na casa do Chefe",
-    "op_family": "Cuidar de seu Cônjuge"
+    "op_family": "Cuidar de seu Cônjuge",
+    "min_hour": 18,
+    "max_hour": 24
   },
   {
     "id": 18,
@@ -142,7 +175,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 10,
     "op_work": "Ir para a Reunião",
-    "op_family": "Remarcar a Reunião"
+    "op_family": "Remarcar a Reunião",
+    "min_hour": 7,
+    "max_hour": 24
   },
   {
     "id": 19,
@@ -150,7 +185,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 10,
     "op_work": "Almoçar com os Colegas",
-    "op_family": "Almoçar com a Família"
+    "op_family": "Almoçar com a Família",
+    "min_hour": 10,
+    "max_hour": 12
   },
   {
     "id": 20,
@@ -158,7 +195,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 15,
     "op_work": "Happy Hour com os Colegas",
-    "op_family": "Encontro com o Cônjuge"
+    "op_family": "Encontro com o Cônjuge",
+    "min_hour": 14,
+    "max_hour": 18
   },
   {
     "id": 21,
@@ -166,7 +205,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 10,
     "op_work": "Continuar na Reunião",
-    "op_family": "Ir ao Hospital"
+    "op_family": "Ir ao Hospital",
+    "min_hour": 9,
+    "max_hour": 18
   },
   {
     "id": 22,
@@ -174,7 +215,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 15,
     "op_work": "Abre o E-mail",
-    "op_family": "Ignora a notificação"
+    "op_family": "Ignora a notificação",
+    "min_hour": 18,
+    "max_hour": 24
   },
   {
     "id": 23,
@@ -182,7 +225,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 10,
     "op_work": "Termina o Relatório",
-    "op_family": "Ajudar o filho nos estudos"
+    "op_family": "Ajudar o filho nos estudos",
+    "min_hour": 18,
+    "max_hour": 23
   },
   {
     "id": 24,
@@ -190,7 +235,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 10,
     "op_work": "Ir para a Reunião",
-    "op_family": "Jantar com a Família"
+    "op_family": "Jantar com a Família",
+    "min_hour": 9,
+    "max_hour": 18
   },
   {
     "id": 25,
@@ -198,7 +245,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 15,
     "op_work": "Montar a Apresentação",
-    "op_family": "Ir para a Praia"
+    "op_family": "Ir para a Praia",
+    "min_hour": 7,
+    "max_hour": 24
   },
   {
     "id": 26,
@@ -206,7 +255,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 10,
     "op_work": "Não pede a Liberação",
-    "op_family": "Pede Liberação"
+    "op_family": "Pede Liberação",
+    "min_hour": 7,
+    "max_hour": 18
   },
   {
     "id": 27,
@@ -214,7 +265,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 15,
     "op_work": "Analisa o Relatório",
-    "op_family": "Vai no Piquenique"
+    "op_family": "Vai no Piquenique",
+    "min_hour": 9,
+    "max_hour": 18
   },
   {
     "id": 28,
@@ -222,7 +275,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 10,
     "op_work": "Vai no Aniversário da Filha do Chefe",
-    "op_family": "Vai no Aniversário da Sobrinha"
+    "op_family": "Vai no Aniversário da Sobrinha",
+    "min_hour": 7,
+    "max_hour": 24
   },
   {
     "id": 29,
@@ -230,7 +285,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 5,
     "op_work": "Vai para o Plantão",
-    "op_family": "Vai para o Parque"
+    "op_family": "Vai para o Parque",
+    "min_hour": 7,
+    "max_hour": 24
   },
   {
     "id": 30,
@@ -238,7 +295,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 15,
     "op_work": "Faz parte do Curso",
-    "op_family": "Fica mais tempo com a Família"
+    "op_family": "Fica mais tempo com a Família",
+    "min_hour": 7,
+    "max_hour": 24
   },
   {
     "id": 31,
@@ -246,7 +305,9 @@ module.exports =[
     "family_points": 15,
     "work_points": 10,
     "op_work": "Leva o trabalho para Casa",
-    "op_family": "Libera mais tempo para a Família"
+    "op_family": "Libera mais tempo para a Família",
+    "min_hour": 7,
+    "max_hour": 24
   },
   {
     "id": 32,
@@ -254,7 +315,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 10,
     "op_work": "Vai para a Reunião de Trabalho",
-    "op_family": "Vai para a Reunião com o Professor"
+    "op_family": "Vai para a Reunião com o Professor",
+    "min_hour": 0,
+    "max_hour": 22
   },
   {
     "id": 33,
@@ -262,7 +325,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 15,
     "op_work": "Sim",
-    "op_family": "Não"
+    "op_family": "Não",
+    "min_hour": 7,
+    "max_hour": 18
   },
   {
     "id": 34,
@@ -270,7 +335,9 @@ module.exports =[
     "family_points": 15,
     "work_points": 10,
     "op_work": "Não",
-    "op_family": "Sim"
+    "op_family": "Sim",
+    "min_hour": 19,
+    "max_hour": 23
   },
   {
     "id": 35,
@@ -278,7 +345,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 10,
     "op_work": "Prepara a Apresentação",
-    "op_family": "Janta com os Pais"
+    "op_family": "Janta com os Pais",
+    "min_hour": 10,
+    "max_hour": 18
   },
   {
     "id": 36,
@@ -286,7 +355,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 10,
     "op_work": "Não à Acompanha",
-    "op_family": "Pede para te Liberarem"
+    "op_family": "Pede para te Liberarem",
+    "min_hour": 0,
+    "max_hour": 23
   },
   {
     "id": 37,
@@ -294,7 +365,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 5,
     "op_work": "Chega no seu Trabalho",
-    "op_family": "Dá a Carona"
+    "op_family": "Dá a Carona",
+    "min_hour": 19,
+    "max_hour": 23
   },
   {
     "id": 38,
@@ -302,7 +375,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 5,
     "op_work": "Sai da Sala",
-    "op_family": "Retorna mais Tarde"
+    "op_family": "Retorna mais Tarde",
+    "min_hour": 9,
+    "max_hour": 18
   },
   {
     "id": 39,
@@ -310,7 +385,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 10,
     "op_work": "Fica até mais Tarde",
-    "op_family": "Comemora com o Cônjuge"
+    "op_family": "Comemora com o Cônjuge",
+    "min_hour": 7,
+    "max_hour": 10
   },
   {
     "id": 40,
@@ -318,7 +395,9 @@ module.exports =[
     "family_points": 15,
     "work_points": 15,
     "op_work": "Finaliza o Projeto",
-    "op_family": "Conversa com o Cônjuge"
+    "op_family": "Conversa com o Cônjuge",
+    "min_hour": 19,
+    "max_hour": 21
   },
   {
     "id": 41,
@@ -326,7 +405,9 @@ module.exports =[
     "family_points": 15,
     "work_points": 10,
     "op_work": "Vai no Happy Hour",
-    "op_family": "Vai no Aniversário do Cônjuge"
+    "op_family": "Vai no Aniversário do Cônjuge",
+    "min_hour": 8,
+    "max_hour": 18
   },
   {
     "id": 42,
@@ -334,7 +415,9 @@ module.exports =[
     "family_points": 10,
     "work_points": 10,
     "op_work": "Responde o E-mail",
-    "op_family": "Passa o tempo com a Família"
+    "op_family": "Passa o tempo com a Família",
+    "min_hour": 7,
+    "max_hour": 21
   },
   {
     "id": 43,
@@ -342,7 +425,9 @@ module.exports =[
     "family_points": 5,
     "work_points": 10,
     "op_work": "Sim",
-    "op_family": "Não"
+    "op_family": "Não",
+    "min_hour": 0,
+    "max_hour": 23
   },
   {
     "id": 44,
@@ -350,6 +435,8 @@ module.exports =[
     "family_points": 10,
     "work_points": 15,
     "op_work": "Não",
-    "op_family": "Sim"
+    "op_family": "Sim",
+    "min_hour": 19,
+    "max_hour": 21
   }
 ]

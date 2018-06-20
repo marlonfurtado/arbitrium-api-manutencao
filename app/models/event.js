@@ -35,6 +35,14 @@ module.exports = function(sequelize, DataTypes) {
         op_family: {
             type: DataTypes.STRING(500),
             notEmpty: true
+        },
+        min_hour: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
+        max_hour: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     }, {
         underscored: true
