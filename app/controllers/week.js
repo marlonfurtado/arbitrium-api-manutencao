@@ -76,6 +76,86 @@ exports.delete = function(req, res) {
     //Do nothing
 };
 
+exports.findLastWeek = async function(req, res) {
+    const scheduleId = await getScheduleId(req.params.interviewId);
+
+    let lastWeek = await getLastWeek(scheduleId);
+
+    if(!lastWeek) {
+        return res.status(400).send({
+            message: 'No weeks for interview ID ' + req.params.interviewId
+        });
+    }
+
+    lastWeek.days = await getWeekDays(lastWeek.id);
+
+    for(let i = 0; i<lastWeek.days.length; i++) {
+        lastWeek.days[i].hours = await getDayHoursAndActivities(lastWeek.days[i].id);
+    }
+
+    res.send(lastWeek);
+}
+
+async function getScheduleId(interviewId) {
+    const interviewSchedule = await db.sequelize.query(
+        'SELECT s.id FROM schedules s WHERE s.interview_id = :interviewId',
+        {
+            replacements: {
+                interviewId: interviewId
+            }
+            , type: db.sequelize.QueryTypes.SELECT
+            , raw: true
+        }
+    );
+
+    return interviewSchedule[0].id;
+}
+
+async function getLastWeek(scheduleId) {
+    const lastWeek = await db.sequelize.query(
+        'SELECT w.id, w.week_number as weekNumber FROM weeks w WHERE w.schedule_id = :scheduleId ORDER BY week_number DESC LIMIT 1',
+        { 
+            replacements: { 
+                scheduleId: scheduleId
+            }
+            , type: db.sequelize.QueryTypes.SELECT
+            , raw: true
+        }
+    );
+
+    return lastWeek[0];
+}
+
+async function getWeekDays(weekId) {
+    const weekDays = await db.sequelize.query(
+        'SELECT d.id, d.day_number as dayNumber FROM days d WHERE d.week_id = :weekId ORDER BY d.day_number ASC',
+        {
+            replacements: {
+                weekId: weekId
+            }
+            , type: db.sequelize.QueryTypes.SELECT
+            , raw: true
+        }
+    );
+
+    return weekDays;
+}
+
+async function getDayHoursAndActivities(dayId) {
+    const dayHours = await db.sequelize.query(
+        'SELECT h.id, h.activity_id as activityId, h.hour_number as hourNumber FROM hours h WHERE day_id = :dayId ORDER BY h.hour_number ASC',
+        {
+            replacements: {
+                dayId: dayId
+            }
+            , type: db.sequelize.QueryTypes.SELECT
+            , raw: true
+        }
+    );
+
+    return dayHours;
+}
+
 async function postValidations(scheduleId, weekNumber, days) {
     var validationErrors = "";
     if(!scheduleId) { 
