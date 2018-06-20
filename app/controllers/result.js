@@ -40,6 +40,9 @@ exports.calcResults = async function(req, res) {
         });
     }
 
+    // Get the last result of a interview, this will be need if there's more than one result
+    const resultId = await getLastResultIdByInterviewId(req.params.interviewId);
+
     // Creating object of results
     let resultPoints = {
         familyAcitivity: 0,
@@ -72,29 +75,22 @@ exports.calcResults = async function(req, res) {
 
             for(let k = 0; k<dayHours.length; k++) {
                 await addOccuranceToActivity(activities, dayHours[k].activity_id);
-
-                if(dayHours[k].question_id != null) {
-                    await includeEventToResults(resultPoints, dayHours[k].question_id);
-                }
             }
 
             await evaluateDay(resultPoints, activities);
-            
-            await updateResult(resultPoints, req.params.interviewId, weekDays[j].id);
         }
 
         await evaluateWeek(resultPoints, activities);
-
-        await updateResult(resultPoints, req.params.interviewId, weekDays[weekDays.length-1].id);
-
-        lastDayId = weekDays[weekDays.length-1].id;
     }
+
+    await addQuestionPointsToResultPoints(resultPoints, req.params.interviewId);
+    
+    await updateResult(resultPoints, resultId);
 
     // return the recalculated result
     await ResultModel.findOne({
         where: {
-            interview_id: req.params.interviewId,
-            day_id: lastDayId
+            id: resultId
         }
     }).then(function(result) {
         res.send(result);
@@ -168,8 +164,33 @@ async function evaluateWeek(resultPoints, activities) {
     return resultPoints;
 }
 
-async function includeEventToResults(resultPoints, eventId) {
-    let eventPoints = await getEventPoints(eventId);
+async function addQuestionPointsToResultPoints(resultPoints, interviewId) {
+    const questions = await getAllQuestionsOfInterview(interviewId);
+
+    for(let i = 0; i<questions.length; i++) {
+        await includeEventToResults(resultPoints, questions[i].id);
+    }
+
+    return resultPoints;
+}
+
+async function getAllQuestionsOfInterview(interviewId) {
+    const allQuestionsOfInterview = await db.sequelize.query(
+        "SELECT q.id, q.event_id as eventId, q.choice FROM questions q where q.interview_id = :interviewId and q.choice != ''",
+        {
+            replacements: {
+                interviewId: interviewId
+            }
+            , type: db.sequelize.QueryTypes.SELECT
+            , raw: true
+        }
+    );
+
+    return allQuestionsOfInterview;
+}
+
+async function includeEventToResults(resultPoints, questionId) {
+    let eventPoints = await getEventPoints(questionId);
 
     if(eventPoints.choice=='F') {
         resultPoints.familyEvent += eventPoints.family_points;
@@ -211,7 +232,22 @@ async function getEventPoints(questionId) {
     return eventPoints[0];
 }
 
-async function updateResult(resultPoints, interviewId, dayId) {
+async function getLastResultIdByInterviewId(interviewId) {
+    const resultId = await db.sequelize.query(
+        'SELECT r.id FROM results r where r.interview_id = :interviewId ORDER BY r.id DESC LIMIT 1',
+        {
+            replacements: {
+                interviewId: interviewId
+            }
+            , type: db.sequelize.QueryTypes.SELECT
+            , raw: true
+        }
+    );
+
+    return Promise.resolve(resultId[0].id);
+}
+
+async function updateResult(resultPoints, resultId) {
     await ResultModel.update( {
             status_family_activity: resultPoints.familyAcitivity,
             status_family_event: resultPoints.familyEvent,
@@ -220,11 +256,10 @@ async function updateResult(resultPoints, interviewId, dayId) {
             status_health_activity: resultPoints.healthAcitivity,
             status_money_activity: resultPoints.moneyAcitivity
         },
-        { 
+        {
             where: {
-                interview_id: interviewId,
-                day_id: dayId
-            } 
+                id: resultId
+            }
         }
     );
 }
