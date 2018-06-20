@@ -31,7 +31,12 @@ exports.update = function(req, res) {
             question_appears_datetime: Date.parse(req.body.question_appears_datetime),
             answered_question_datetime: Date.parse(req.body.answered_question_datetime)
         },
-        { where: { id: req.params.questionId } }
+        {
+            where: {
+                event_id: req.params.questionId,
+                interview_id: req.body.interview_id
+            }
+        }
     ).then(function(updateStatus) {
         if(updateStatus[0] === 0) {
             return res.status(404).send({
