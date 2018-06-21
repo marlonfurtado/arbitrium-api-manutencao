@@ -83,16 +83,19 @@ exports.calcResults = async function(req, res) {
         await evaluateWeek(resultPoints, activities);
 
         lastDayId = weekDays[weekDays.length-1].id;
+    
+        await updateResult(resultPoints, req.params.interviewId, lastDayId, scheduleWeeks[i].id);
     }
-
+    
     await addQuestionPointsToResultPoints(resultPoints, req.params.interviewId);
     
-    await updateResult(resultPoints, resultId, lastDayId);
+    await updateResult(resultPoints, req.params.interviewId, lastDayId, scheduleWeeks[scheduleWeeks.length-1].id);
 
     // return the recalculated result
     await ResultModel.findOne({
         where: {
-            id: resultId
+            interview_id: req.params.interviewId,
+            week_id: scheduleWeeks[scheduleWeeks.length-1].id
         }
     }).then(function(result) {
         res.send(result);
@@ -249,7 +252,7 @@ async function getLastResultIdByInterviewId(interviewId) {
     return Promise.resolve(resultId[0].id);
 }
 
-async function updateResult(resultPoints, resultId, dayId) {
+async function updateResult(resultPoints, interviewId, dayId, weekId) {
     await ResultModel.update( {
             status_family_activity: resultPoints.familyAcitivity,
             status_family_event: resultPoints.familyEvent,
@@ -261,7 +264,8 @@ async function updateResult(resultPoints, resultId, dayId) {
         },
         {
             where: {
-                id: resultId
+                interview_id: interviewId,
+                week_id: weekId
             }
         }
     );

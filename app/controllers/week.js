@@ -1,21 +1,20 @@
-var db = require('../models/index.js');
-var WeekModel = require('../models/week.js')(db.sequelize, db.Sequelize);
-var DayModel = require('../models/day.js')(db.sequelize, db.Sequelize);
-var HourModel = require('../models/hour.js')(db.sequelize, db.Sequelize);
+const db = require('../models/index.js');
+const WeekModel = require('../models/week.js')(db.sequelize, db.Sequelize);
+const DayModel = require('../models/day.js')(db.sequelize, db.Sequelize);
+const HourModel = require('../models/hour.js')(db.sequelize, db.Sequelize);
+const ResultModel = require('../models/result.js')(db.sequelize, db.Sequelize);
 
 exports.create = async function(req, res) {
     // Will be used to storage the return of week save
-    var weekResult;
+    let weekResult;
     // Will be used to concatenate multiple results of multiple queries
-    var functionResult;
+    let functionResult;
     // Will be used to catch all inside promises errors to throw if it occours
-    var promisesErrors= "";
-    var validationsErrors = "";
+    let promisesErrors= "";
+    let validationsErrors = "";
 
     // Validates mandatory parameters
     validationsErrors = await postValidations(req.body.schedule_id, req.body.week_number, req.body.days);
-
-    console.log(validationsErrors);
 
     // Check if we got any input validation errors
     if(validationsErrors || !(0 === validationsErrors.length)) {
@@ -26,30 +25,48 @@ exports.create = async function(req, res) {
 
     try {
         // Create week model and save the week record on database
-        var week = new WeekModel({ schedule_id: req.body.schedule_id, week_number: req.body.week_number });
+        const week = new WeekModel(
+            { 
+                schedule_id: req.body.schedule_id, 
+                week_number: req.body.week_number 
+            }
+        );
         weekResult = await week.save();
 
-        await req.body.days.forEach(async function(day) {
-            try {
-                var dayModel = new DayModel({ week_id: weekResult.id, day_number: day.day_number});
-                var dayResult = await dayModel.save();
+        let days = req.body.days;
 
-                await day.hours.forEach(async function(hour) {
+        await days.forEach(async function(day) {
+            try {
+                const dayModel = new DayModel({ week_id: weekResult.id, day_number: day.day_number});
+                let dayResult = await dayModel.save();
+                let dayHours = day.hours;
+
+                for(let j = 0; j<dayHours.length; j++) {
                     try {
-                        var hour = new HourModel({day_id: dayResult.id, activity_id: hour.activity_id, hour_number: hour.hour_number});
-                        var hourResult = await hour.save();
+                        const hour = new HourModel(
+                            { 
+                                day_id: dayResult.id,
+                                activity_id: dayHours[j].activity_id,
+                                hour_number: dayHours[j].hour_number
+                            }
+                        );
+
+                        await hour.save();
                     } catch (err) {
                         res.status(500).send({
                             message: err.message || "Some error occurred while creating the hour."
                         });
                     }
-                });
+                }
             } catch (err) {
                 res.status(500).send({
                     message: err.message || "Some error occurred while creating the day."
                 });
             }
         });
+        
+        const interviewId = await getInterviewIdByScheduleId(req.body.schedule_id);
+        await createWeekResultLine(interviewId, weekResult.id);
         
         res.send(weekResult);
     } catch(err) {
@@ -76,8 +93,34 @@ exports.delete = function(req, res) {
     //Do nothing
 };
 
+async function getInterviewIdByScheduleId(scheduleId) {
+    const interviewId = await db.sequelize.query(
+        'SELECT s.interview_id as interviewId FROM schedules s WHERE s.id = :scheduleId'
+        , { 
+            replacements: { 
+                scheduleId: scheduleId 
+            }
+            , type: db.sequelize.QueryTypes.SELECT
+        }
+    );
+
+    return interviewId[0].interviewId;
+}
+
+async function createWeekResultLine(interviewId, weekId) {
+    let result = new ResultModel(
+        {
+            interview_id: interviewId,
+            week_id: weekId
+        }
+    );
+    await result.save();
+
+    return result;
+}
+
 async function postValidations(scheduleId, weekNumber, days) {
-    var validationErrors = "";
+    let validationErrors = "";
     if(!scheduleId) { 
         validationErrors= "Week schedule_id can not be empty."
     } else if(!weekNumber) { 
