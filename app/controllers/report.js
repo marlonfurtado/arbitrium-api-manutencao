@@ -17,10 +17,10 @@ exports.findAll = function(req,res){
                   'familia_1',
                   'trabalho_1',
                   'quarto_evento',
-                  'quarta_resposta',
-                  'tempo_ter_resposta',
+                  'quarta_resposta',                  
                   'tempo_qua_resposta',
                   'quinto_evento',
+                  'quinta_resposta',
                   'tempo_qui_resposta',
                   'sexto_evento',
                   'sexta_resposta',
@@ -60,7 +60,7 @@ exports.findAll = function(req,res){
 
     var functionResult;
     var reportQuery = `
-                        SELECT S.id_participante as participante,
+                       SELECT S.id_participante as participante,
                                E.prim_evento,
                                E.prim_resposta,
                                E.tempo_prim_resposta,
@@ -75,10 +75,10 @@ exports.findAll = function(req,res){
                                S.familia_1,
                                S.trabalho_1,
                                E.quarto_evento,
-                               E.quarta_resposta,
-                               E.tempo_ter_resposta,
+                               E.quarta_resposta,                               
                                E.tempo_qua_resposta,
                                E.quinto_evento,
+                               E.quinta_resposta,
                                E.tempo_qui_resposta,
                                E.sexto_evento,
                                E.sexta_resposta,
@@ -161,6 +161,7 @@ exports.findAll = function(req,res){
                                                                                  FROM (
                                                                                        SELECT i.id as id_participante,
                                                                                               w.week_number,
+                                                                                              d.id as ult_dia,
                                                                                               re.status_family_activity + re.status_family_event as status_family,
                                                                                               re.status_health_activity + re.status_health_event as status_health,
                                                                                               re.status_money_activity + re.status_money_event as status_money,
@@ -172,22 +173,23 @@ exports.findAll = function(req,res){
                                                                                               INNER JOIN interviews as i on s.interview_id = i.id ORDER BY i.id, w.week_number, d.day_number ASC
                                                                                       ) as A, (SELECT @row_number:=0) as t
                                                                         ) AS B 
-                                                                        WHERE B.num in (
+                                                                        WHERE B.ult_dia in (
                                                                                          SELECT max(B.num)
-                                                                                                FROM ( SELECT A.*, (@row_number2:= @row_number2 + 1) AS num
+                                                                                                FROM ( SELECT A.*
                                                                                                               FROM (SELECT i.id as id_participante,
-                                                                                                                           w.week_number
+                                                                                                                           w.week_number,
+                                                                                                                           d.id as num
                                                                                                                            FROM days as d
                                                                                                                            INNER JOIN weeks as w on d.week_id = w.id
                                                                                                                            INNER JOIN schedules as s on w.schedule_id =  s.id
                                                                                                                            INNER JOIN interviews as i on s.interview_id = i.id ORDER BY i.id, w.week_number, d.day_number ASC
-                                                                                                                    ) as A, (SELECT @row_number2:=0) as t
+                                                                                                                    ) as A
                                                                                                       ) AS B GROUP BY B.id_participante, B.week_number
                                                                                        )
                                                             ) AS C 
                                                ) AS D GROUP BY D.id_participante
                                 ) as S
-                        INNER JOIN (
+                        LEFT JOIN (
                                        
                                 SELECT b.id_participante,
                                        MAX(b.prim_evento) as prim_evento,
@@ -231,7 +233,7 @@ exports.findAll = function(req,res){
                                                      CASE WHEN a.rank=1 then a.event_id end as prim_evento,
                                                      CASE WHEN a.rank=2 then a.event_id end as segundo_evento,
                                                      CASE WHEN a.rank=3 then a.event_id end as terceiro_evento,
-                                                     CASE WHEN a.a.rank=4 then a.event_id end  as quarto_evento,
+                                                     CASE WHEN a.rank=4 then a.event_id end  as quarto_evento,
                                                      CASE WHEN a.rank=5 then a.event_id end as quinto_evento,
                                                      CASE WHEN a.rank=6 then a.event_id end as sexto_evento,
                                                      CASE WHEN a.rank=7 then a.event_id end as setimo_evento,
@@ -276,14 +278,11 @@ exports.findAll = function(req,res){
                                                                   ELSE @curRow := 1 AND @curType := q.interview_id END
                                                                   )  AS rank
                                                                  FROM questions as q
-                                                                 INNER JOIN hours as h on q.id = h.question_id
-                                                                 INNER JOIN days as d on h.day_id = d.id
-                                                                 LEFT JOIN weeks as w on d.week_id = w.id
-                                                                 ,(SELECT @curRow := 0, @curType := '') as t
-                                                                 ORDER BY q.interview_id, d.day_number
+                                                                ,(SELECT @curRow := 0, @curType := '') as t
+                                                                 ORDER BY q.interview_id, q.id
                                                           ) AS a
                                             ) AS b GROUP BY b.id_participante
-                                      ) AS E on S.id_participante = E.id_participante
+                                      ) AS E on E.id_participante = S.id_participante
                       `;    
     functionResult = db.sequelize.query(reportQuery,{type: db.sequelize.QueryTypes.SELECT})
     .then(
