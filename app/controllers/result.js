@@ -83,8 +83,6 @@ exports.calcResults = async function(req, res) {
         await evaluateWeek(resultPoints, activities);
 
         lastDayId = weekDays[weekDays.length-1].id;
-    
-        await updateResult(resultPoints, req.params.interviewId, lastDayId, scheduleWeeks[i].id);
     }
     
     await addQuestionPointsToResultPoints(resultPoints, req.params.interviewId);
