@@ -1,13 +1,12 @@
-var db = require('../models/index.js');
-var InterviewModel = require('../models/interview.js')(db.sequelize, db.Sequelize);
-var ScheduleModel = require('../models/schedule.js')(db.sequelize, db.Sequelize);
-var ResultModel = require('../models/result.js')(db.sequelize, db.Sequelize);
+const db = require('../models/index.js');
+const InterviewModel = require('../models/interview.js')(db.sequelize, db.Sequelize);
+const ScheduleModel = require('../models/schedule.js')(db.sequelize, db.Sequelize);
 
 exports.create = async function(req, res) {
     // Will be used to storage the return of interview save
-    var interviewResult;
+    let interviewResult;
     // Will  be used to concatenate multiple results of multiple queries
-    var functionResult;
+    let functionResult;
 
     // Validates mandatory parameters
     if(!req.body.researcher_id) {
@@ -18,16 +17,12 @@ exports.create = async function(req, res) {
 
     try {
         // Create interview model and save the interview record on database
-        var interview = new InterviewModel({ researcher_id: req.body.researcher_id, initial_date: req.body.initial_date, conclusion_date: req.body.conclusion_date });
+        const interview = new InterviewModel({ researcher_id: req.body.researcher_id, initial_date: req.body.initial_date, conclusion_date: req.body.conclusion_date });
         interviewResult = await interview.save();
 
         // Take the auto generated ID of interview and save the of schedule record on database
-        var schedule = new ScheduleModel({ interview_id: interviewResult.id });
+        const schedule = new ScheduleModel({ interview_id: interviewResult.id });
         await schedule.save();
-
-        //take the auto generated ID of interview and save the result record on database
-        var result = new ResultModel({interview_id: interviewResult.id});
-        await result.save();
 
         // TODO: Change it to ORM quering or by join, I didn't find a way to do it yet
         functionResult = await db.sequelize.query('SELECT i.id, i.researcher_id, i.initial_date, i.conclusion_date, i.created_at, i.updated_at FROM interviews i WHERE i.id = :interview_id',
