@@ -6,7 +6,7 @@ const WeekModel = require('../models/week.js')(db.sequelize, db.Sequelize);
 const DayModel = require('../models/day.js')(db.sequelize, db.Sequelize);
 const HourModel = require('../models/hour.js')(db.sequelize, db.Sequelize);
 const ActivityPunctuationModel = require('../models/activity_punctuation.js')(db.sequelize, db.Sequelize);
-
+let activitiesList = []
 exports.create = function(req, res) {
     //Do nothing;
 };
@@ -30,6 +30,7 @@ exports.findOne = function(req, res) {
 };
 
 exports.calcResults = async function(req, res) {
+    activitiesList = []
     // Make validations
     let isResultExists = await checkIfResultForInterviewExists(req.params.interviewId);
     
@@ -62,9 +63,10 @@ exports.calcResults = async function(req, res) {
     // Creating object of activities
     let activities = await getActivitiesByPointTypes();
 
+    
+
     // Get weeks of a schedule
     const scheduleWeeks = await WeekModel.findAll( { where: { schedule_id: schedule.id } } );
-
     for(let i = 0; i<scheduleWeeks.length; i++) {
         // Get days of a week
         const weekDays = await DayModel.findAll( { where: { week_id: scheduleWeeks[i].id }, raw: true } );
@@ -72,13 +74,15 @@ exports.calcResults = async function(req, res) {
         for(let j = 0; j<weekDays.length; j++) {
             // Get hours of a day
             const dayHours = await HourModel.findAll( { where: { day_id: weekDays[j].id }, raw: true } );
-
+            //Get number of occurance to activities
             for(let k = 0; k<dayHours.length; k++) {
                 await addOccuranceToActivity(activities, dayHours[k].activity_id);
             }
 
             await evaluateDay(resultPoints, activities);
         }
+        //  Evaluate hour
+        await evaluateHour(resultPoints, activities);
 
         await evaluateWeek(resultPoints, activities);
 
@@ -102,7 +106,27 @@ exports.calcResults = async function(req, res) {
             message: err.message || "Some error occurred while retrieving a single result by interview."
         });
     });
+    console.log(activitiesList)
+
+    checkObtainedResults()
 };
+
+function checkObtainedResults(){
+    let len = activitiesList.length
+    let fPoints = 0
+    let wPoints = 0
+    let hPoints = 0
+    let mPoints = 0
+    for(let i = 0; i< len; i++){
+        let currentActivity = activitiesList[i]
+        fPoints += currentActivity.familyPoints
+        wPoints += currentActivity.workPoints
+        hPoints += currentActivity.healthPoints
+        mPoints += currentActivity.moneyPoints
+    }
+
+    console.log("Final results not considering events:\nFamily: %d\nWork: %d\nHealth: %d\nMoney: %d\n",fPoints,wPoints,hPoints,mPoints)
+}
 
 async function checkIfResultForInterviewExists(interviewId) {
     let result = await ResultModel.findOne( { where: { interview_id: interviewId } } );
@@ -113,7 +137,8 @@ async function checkIfResultForInterviewExists(interviewId) {
 async function getActivitiesByPointTypes() {
     let activities = {
         dayActivities: { },
-        weekActivities: { }
+        weekActivities: { },
+        hourActivities: { }
     };
 
     activities.dayActivities = await db.sequelize.query(
@@ -130,10 +155,49 @@ async function getActivitiesByPointTypes() {
         }, type: db.sequelize.QueryTypes.SELECT
     });
 
+    activities.hourActivities = await db.sequelize.query(
+        'SELECT distinct a.id, 0 as numberOfOccurrences FROM activities as a INNER JOIN activity_punctuations as ap on ap.activity_id = a.id WHERE ap.points_type = :pointType',
+        { replacements: { 
+            pointType: 'H' 
+        }, type: db.sequelize.QueryTypes.SELECT
+    });
+
     return activities;
 }
 
+//evaluate type H activities (hour activities)
+async function evaluateHour(resultPoints, activities) {
+
+    for(let k = 0; k<activities.hourActivities.length; k++) {
+        if(activities.hourActivities[k].numberOfOccurrences!=0) {
+            let numberOfOccurrences = activities.hourActivities[k].numberOfOccurrences
+            let activityPoints = await getActivityPoints(activities.hourActivities[k].id, activities.hourActivities[k].numberOfOccurrences);
+
+            resultPoints.familyAcitivity += activityPoints.family_points * numberOfOccurrences;
+            resultPoints.workAcitivity += activityPoints.work_points * numberOfOccurrences;
+            resultPoints.healthAcitivity += activityPoints.health_points * numberOfOccurrences;
+            resultPoints.moneyAcitivity += activityPoints.money_points * numberOfOccurrences;
+            
+            dataOfActivity = {
+                activityId: activities.hourActivities[k].id,
+                activityTipe: "H",
+                occurrences: activities.hourActivities[k].numberOfOccurrences,
+                familyPoints: activityPoints.family_points * numberOfOccurrences,
+                workPoints: activityPoints.work_points * numberOfOccurrences,
+                healthPoints: activityPoints.health_points * numberOfOccurrences,
+                moneyPoints: activityPoints.money_points * numberOfOccurrences
+            }
+            activitiesList.push(dataOfActivity)
+
+            activities.hourActivities[k].numberOfOccurrences = 0;
+        }
+    }
+
+    return resultPoints;
+}
+
 async function evaluateDay(resultPoints, activities) {
+
     for(let k = 0; k<activities.dayActivities.length; k++) {
         if(activities.dayActivities[k].numberOfOccurrences!=0) {
             let activityPoints = await getActivityPoints(activities.dayActivities[k].id, activities.dayActivities[k].numberOfOccurrences);
@@ -143,7 +207,20 @@ async function evaluateDay(resultPoints, activities) {
             resultPoints.healthAcitivity += activityPoints.health_points;
             resultPoints.moneyAcitivity += activityPoints.money_points;
 
+            dataOfActivity = {
+                activityId: activities.dayActivities[k].id,
+                activityTipe: "D",
+                occurrences: activities.dayActivities[k].numberOfOccurrences,
+                familyPoints: activityPoints.family_points,
+                workPoints: activityPoints.work_points,
+                healthPoints: activityPoints.health_points,
+                moneyPoints: activityPoints.money_points
+            }
+            activitiesList.push(dataOfActivity)
+
             activities.dayActivities[k].numberOfOccurrences = 0;
+
+            
         }
     }
 
@@ -159,6 +236,17 @@ async function evaluateWeek(resultPoints, activities) {
             resultPoints.workAcitivity += activityPoints.work_points;
             resultPoints.healthAcitivity += activityPoints.health_points;
             resultPoints.moneyAcitivity += activityPoints.money_points;
+
+            dataOfActivity = {
+                activityId: activities.weekActivities[k].id,
+                activityTipe: "S",
+                occurrences: activities.weekActivities[k].numberOfOccurrences,
+                familyPoints: activityPoints.family_points,
+                workPoints: activityPoints.work_points,
+                healthPoints: activityPoints.health_points,
+                moneyPoints: activityPoints.money_points
+            }
+            activitiesList.push(dataOfActivity)
 
             activities.weekActivities[k].numberOfOccurrences = 0;
         }
@@ -279,6 +367,13 @@ function addOccuranceToActivity(activities, activityId) {
     for(let a = 0; a<activities.weekActivities.length; a++) {
         if(activities.weekActivities[a].id === activityId) {
             activities.weekActivities[a].numberOfOccurrences++;
+        }
+    }
+
+    //add number of occurrence of hour activities
+    for(let a = 0; a<activities.hourActivities.length; a++) {
+        if(activities.hourActivities[a].id === activityId) {
+            activities.hourActivities[a].numberOfOccurrences++;
         }
     }
 }
