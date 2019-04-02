@@ -1,59 +1,51 @@
-module.exports = function(sequelize, Sequelize) {
+module.exports = function(sequelize, DataTypes) {
     var ActivityPunctuation = sequelize.define('activity_punctuation', {
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
         activity_id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
-        occurrences_number: {
-            type: Sequelize.INTEGER,
+        initial_occurences_number: {
+            type: DataTypes.INTEGER,
+            notEmpty: true
+        },
+        final_occurences_number: {
+            type: DataTypes.INTEGER,
             notEmpty: true
         },
         family_points: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             notEmpty: true
         },
         health_points: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             notEmpty: true
         },
         money_points: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             notEmpty: true
         },
         work_points: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             notEmpty: true
         },
-        family_bonus_points: {
-            type: Sequelize.INTEGER,
-            notEmpty: true
-        },
-        health_bonus_points: {
-            type: Sequelize.INTEGER,
-            notEmpty: true
-        },
-        money_bonus_points: {
-            type: Sequelize.INTEGER,
-            notEmpty: true
-        },
-        work_bonus_points: {
-            type: Sequelize.INTEGER,
+        points_type: {
+            type: DataTypes.STRING,
             notEmpty: true
         },
         created_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         },
         updated_at: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         }
     }, {
         underscored: true

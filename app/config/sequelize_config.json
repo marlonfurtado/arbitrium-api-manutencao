@@ -1,8 +1,8 @@
 {
     "development": {
         "username": "root",
-        "password": "root",
-        "database": "arbitrium_database",
+        "password": "senha",
+        "database": "arbitrium",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },
@@ -14,10 +14,10 @@
         "dialect": "mysql"
     },
     "production": {
-        "username": "",
-        "password": null,
-        "database": "",
-        "host": "127.0.0.1",
+        "username": "root",
+        "password": "arbitrium",
+        "database": "arbitrium",
+        "host": "database",
         "dialect": "mysql"
     }
 }

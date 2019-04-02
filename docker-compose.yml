@@ -1,0 +1,43 @@
+# How to run:
+# docker-compose up -d
+
+version: '2'
+services:
+  database:
+    container_name: database
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=arbitrium
+      - MYSQL_DATABASE=arbitrium
+    # TODO: adjust server path according to desired place to store data
+    # volumes:
+    #   - /home/15280433/database:/var/lib/mysql
+  api:
+    container_name: api
+    build:
+      args:
+        - GIT_BRANCH=dev
+      context: .
+      dockerfile: Dockerfile_api
+    image: arbitrium_api:latest
+    depends_on:
+      - "database"
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    command: ["./wait-for-it.sh", "database:3306", "--", "npm", "start"]
+  web:
+    container_name: web
+    build:
+      args:
+        - GIT_BRANCH=dev
+      context: .
+      dockerfile: Dockerfile_web
+    image: arbitrium_web:latest
+    depends_on:
+      - "api"
+    ports:
+      - "8080:8080"

@@ -1,4 +1,12 @@
+# Node ignored files
 node_modules
 package-lock.json
 .env
 app/config/sequelize_config.json
+*.log
+
+# IDEs ignored files
+.vscode
+*.swp
+
+vim.exe.stackdump

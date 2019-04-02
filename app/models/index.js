@@ -62,7 +62,6 @@ db.activities.hasMany(db.activity_punctuations);
 db.activity_punctuations.belongsTo(db.activities);
 
 //Questions relations
-db.questions.hasMany(db.hours);
 db.questions.belongsTo(db.interviews);
 db.questions.belongsTo(db.events);
 

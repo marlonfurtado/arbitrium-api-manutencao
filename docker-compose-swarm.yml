@@ -1,0 +1,37 @@
+# How to run:
+# 1) Docker swarm doesnt support building images, so you have to build them first
+# docker pull mysql:5.6
+# docker build -t arbitrium_api:latest -f Dockerfile_api .
+# docker build -t arbitrium_web:latest -f Dockerfile_web .
+# 2) Start docker in swarm mode (if not already). Set IP according to network.
+# docker swarm init --advertise-addr 192.168.0.6
+# 3) Use this compose file to start a stack
+# docker stack deploy --compose-file=docker-compose-swarm.yml arbitrium
+
+version: '3'
+services:
+  database:
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=arbitrium
+      - MYSQL_DATABASE=arbitrium
+    # TODO: adjust server path according to desired place to store data
+    # volumes:
+    #   - /home/15280433/database:/var/lib/mysql
+  api:
+    image: arbitrium_api:latest
+    depends_on:
+      - "database"
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    command: ["./wait-for-it.sh", "database:3306", "--", "npm", "start"]
+  web:
+    image: arbitrium_web:latest
+    depends_on:
+      - "api"
+    ports:
+      - "8080:8080"
