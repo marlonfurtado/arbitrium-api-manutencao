@@ -24,3 +24,20 @@ describe('/GET', () => {
     });
 });
 
+describe('/GET activity by id', () => {
+    it('it should GET one activity"', (done) => {
+        chai.request(server)
+        .get('/activities/1')
+        .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('description');
+                res.body.should.have.property('description').eql('Dormir');
+                res.body.should.have.property('created_at');
+                res.body.should.have.property('created_at').eql('2019-06-04T23:00:43.000Z');
+
+            done();
+        });
+    });
+});
+
