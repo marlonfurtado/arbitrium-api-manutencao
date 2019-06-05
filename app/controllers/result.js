@@ -106,7 +106,7 @@ exports.calcResults = async function(req, res) {
             message: err.message || "Some error occurred while retrieving a single result by interview."
         });
     });
-    console.log(activitiesList)
+    //console.log(activitiesList)
 
     checkObtainedResults()
 };
