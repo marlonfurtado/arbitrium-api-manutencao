@@ -1,0 +1,358 @@
+{
+  "ci_service": {
+    "branch": "master",
+    "build_identifier": "",
+    "build_url": "",
+    "commit_sha": "93b222722d5ef9a5398d5e4492e1dceeb26945e0",
+    "committed_at": 1559693028,
+    "name": ""
+  },
+  "environment": {
+    "gem_version": "2.7.6",
+    "package_version": "",
+    "pwd": "/home/marlonfurtado/git/manutencao/arbitrium-api-manutencao",
+    "prefix": "/home/marlonfurtado/git/manutencao/arbitrium-api-manutencao",
+    "rails_root": "",
+    "reporter_version": "0.6.4",
+    "simplecov_root": ""
+  },
+  "git": {
+    "branch": "master",
+    "head": "93b222722d5ef9a5398d5e4492e1dceeb26945e0",
+    "committed_at": 1559693028
+  },
+  "covered_percent": 38.853503184713375,
+  "covered_strength": 0,
+  "line_counts": {
+    "missed": 288,
+    "covered": 183,
+    "total": 471
+  },
+  "source_files": [
+    {
+      "blob_id": "7c06ed943f31b860ce28fa90b05ea31089a17946",
+      "coverage": "[1,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,3]",
+      "covered_percent": 100,
+      "covered_strength": 2.3333333333333335,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/result.js"
+    },
+    {
+      "blob_id": "1d1c81a89c1632d6c8ef5c2c4834a8f6177dff2f",
+      "coverage": "[1,1,null,null,null,null,null,1,null,null,1]",
+      "covered_percent": 100,
+      "covered_strength": 1,
+      "line_counts": {
+        "missed": 0,
+        "covered": 4,
+        "total": 4
+      },
+      "name": "app/routes/event.js"
+    },
+    {
+      "blob_id": "7650ec42da1cb899ae0fbcc434b1502208323eeb",
+      "coverage": "[1,1,1,1,1,1,1,1,null,null,1,1,null,1,1,1,null,1,null,null,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,null,null,0,null,null,0,0,null,null,null,null,0,0,null,null,null,null,null,0,0,null,null,null,0,0,null,null,null,null,0,0,null,null,null,null,null,0,0,null,null,null,null,null,0,0,null,null,null,null,null,0,0,null,null,null,null,null,0,0,null,null,null,null,null,0,0,null,null,null,null,null,0,null,null,null,null,null,null,null,null,null,null,null,1,null,null,null,1,1,null,null,null,1,1,1,1,1,1,1,null,null,1,0,null,null,1]",
+      "covered_percent": 37.5,
+      "covered_strength": 0.375,
+      "line_counts": {
+        "missed": 45,
+        "covered": 27,
+        "total": 72
+      },
+      "name": "server.js"
+    },
+    {
+      "blob_id": "cbb2d664ea9a6b86fdec03568d26f598abdaa4d3",
+      "coverage": "[1,1,null,1,null,null,null,1,0,null,0,null,0,null,null,null,null,null,1,0,null,null,null,null,0,null,0,null,null,null,null,null,1,null,null,null,1]",
+      "covered_percent": 53.84615384615385,
+      "covered_strength": 0.5384615384615384,
+      "line_counts": {
+        "missed": 6,
+        "covered": 7,
+        "total": 13
+      },
+      "name": "app/controllers/event.js"
+    },
+    {
+      "blob_id": "16da126dc5e48057a5233d00aa7ab2ed227b448d",
+      "coverage": "[1,1,null,null,null,null,null,1]",
+      "covered_percent": 100,
+      "covered_strength": 1,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/routes/report.js"
+    },
+    {
+      "blob_id": "f862a1055c85805ae230403904cca80f2747c849",
+      "coverage": "[1,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,3]",
+      "covered_percent": 100,
+      "covered_strength": 2.3333333333333335,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/schedule.js"
+    },
+    {
+      "blob_id": "0321dd39acb10d3a26f254a257b610ec301347c0",
+      "coverage": "[1,1,1,1,1,null,1,null,null,null,null,null,0,0,null,null,0,null,null,0,0,null,null,null,null,0,null,0,null,null,null,null,null,0,null,0,null,0,0,0,0,0,null,0,0,0,null,null,null,null,null,null,null,0,null,0,null,null,null,null,null,0,null,null,null,null,null,0,0,null,0,null,null,0,null,null,null,null,null,1,null,null,null,1,null,null,null,1,null,null,null,1,null,null,null,1,0,null,0,null,0,0,null,null,null,null,0,null,0,0,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,null,null,null,null,0,null,0,null,null,null,0,0,0,0,0,0,0,null,0,0,0,0,0,0,null,0,0,0,0,0,0,null,null,null,null,null,null,null,null,0]",
+      "covered_percent": 14.473684210526317,
+      "covered_strength": 0.14473684210526316,
+      "line_counts": {
+        "missed": 65,
+        "covered": 11,
+        "total": 76
+      },
+      "name": "app/controllers/week.js"
+    },
+    {
+      "blob_id": "6545d1a9b8b4321d75aad16a3e602f039e66c9cf",
+      "coverage": "[1,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,2]",
+      "covered_percent": 100,
+      "covered_strength": 1.6666666666666667,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/activity_punctuation.js"
+    },
+    {
+      "blob_id": "824107b83b958680164a5baf1269b3414d7e0bd0",
+      "coverage": "[1,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,2]",
+      "covered_percent": 100,
+      "covered_strength": 1.6666666666666667,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/event.js"
+    },
+    {
+      "blob_id": "086d15e1a61e6c518b8e418398903879189d757a",
+      "coverage": "[1,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,3]",
+      "covered_percent": 100,
+      "covered_strength": 2.3333333333333335,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/hour.js"
+    },
+    {
+      "blob_id": "47152d05f7532eebb935c53152a3b5c098714ac8",
+      "coverage": "[1,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1]",
+      "covered_percent": 100,
+      "covered_strength": 1,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/researcher.js"
+    },
+    {
+      "blob_id": "d7f4a33b428d1dc521d4be0104c98163a7dad40b",
+      "coverage": "[1,1,null,null,1]",
+      "covered_percent": 100,
+      "covered_strength": 1,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/routes/interview.js"
+    },
+    {
+      "blob_id": "0fa12f7c702eb5a70af08f3712beedd85f98071c",
+      "coverage": "[1,1,null,null,null,1,null,null,1]",
+      "covered_percent": 100,
+      "covered_strength": 1,
+      "line_counts": {
+        "missed": 0,
+        "covered": 4,
+        "total": 4
+      },
+      "name": "app/routes/question.js"
+    },
+    {
+      "blob_id": "5dcd876f8c053702af45e89d34ab1d0a59815e26",
+      "coverage": "[1,1,1,null,1,null,null,null,null,null,null,0,0,null,null,null,null,0,null,0,0,null,null,0,0,null,null,0,null,null,0,null,null,null,0,null,null,0,null,null,null,null,null,1,null,null,null,1,null,null,null,1,null,null,null,1]",
+      "covered_percent": 42.10526315789473,
+      "covered_strength": 0.42105263157894735,
+      "line_counts": {
+        "missed": 11,
+        "covered": 8,
+        "total": 19
+      },
+      "name": "app/controllers/interview.js"
+    },
+    {
+      "blob_id": "931aa67fc5a07409221ab1a694405161eb3ee10b",
+      "coverage": "[1,1,null,1,0,0,0,0,0,0,null,0,0,null,null,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,0,0,0,null,null,1,0,0,0,null,null,null,0,0,null,0,null,null,0,null,null,null,null,0,0,0,0]",
+      "covered_percent": 13.333333333333334,
+      "covered_strength": 0.13333333333333333,
+      "line_counts": {
+        "missed": 26,
+        "covered": 4,
+        "total": 30
+      },
+      "name": "app/controllers/question.js"
+    },
+    {
+      "blob_id": "1e0e76d82f67aec39345da794790f4996aaf9eae",
+      "coverage": "[1,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,3]",
+      "covered_percent": 100,
+      "covered_strength": 2.3333333333333335,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/week.js"
+    },
+    {
+      "blob_id": "656cd5bbd018245590379a5d8fa3af4ffca39390",
+      "coverage": "[1,1,null,null,null,null,null,1,null,null,1]",
+      "covered_percent": 100,
+      "covered_strength": 1,
+      "line_counts": {
+        "missed": 0,
+        "covered": 4,
+        "total": 4
+      },
+      "name": "app/routes/activity.js"
+    },
+    {
+      "blob_id": "b1b9b2c09da62eb6396f33db9e903637f2e85c48",
+      "coverage": "[1,1,null,1,null,null,null,1,0,null,0,null,0,null,null,null,null,null,1,1,null,null,null,null,0,null,1,null,null,null,null,null,1,0,0,null,null,null,null,0,0,null,null,null,0,null,null,null,null,0,null,0,null,null,0,null,0,null,null,null,null,0,null,null,null,null,null,0,0,null,null,null,0,null,null,null,null,null,1]",
+      "covered_percent": 34.61538461538461,
+      "covered_strength": 0.34615384615384615,
+      "line_counts": {
+        "missed": 17,
+        "covered": 9,
+        "total": 26
+      },
+      "name": "app/controllers/activity.js"
+    },
+    {
+      "blob_id": "ad6f5294f60f19a46c6188b9884446e4e90f9e56",
+      "coverage": "[1,1,1,1,1,1,1,1,1,1,null,null,null,1,null,null,null,1,0,null,null,null,null,0,null,0,null,null,null,null,null,1,0,null,0,null,null,0,0,null,null,null,null,null,0,null,null,0,null,null,null,null,null,null,null,null,null,0,null,null,0,null,null,0,null,null,null,null,0,0,null,0,null,0,null,0,null,0,0,null,null,0,null,null,0,null,0,null,0,null,null,0,null,0,null,null,0,null,null,null,null,null,0,null,0,null,null,null,0,null,0,null,null,null,0,0,0,0,0,0,0,0,0,0,0,null,null,0,null,null,null,0,null,0,null,null,null,0,null,null,null,null,null,0,null,null,null,null,null,null,0,null,null,null,null,null,null,0,null,null,null,null,null,null,0,null,null,null,null,null,0,0,0,0,null,0,0,0,0,null,0,null,null,null,null,null,null,null,null,0,null,0,null,null,null,0,null,null,null,null,0,0,0,null,0,0,0,0,null,0,null,null,null,null,null,null,null,null,0,null,0,null,null,null,null,null,0,null,null,null,0,0,0,null,0,0,0,0,null,0,null,null,null,null,null,null,null,null,0,null,0,null,null,null,0,null,null,null,0,null,0,0,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,0,0,0,0,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,0,null,null,null,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,0,null,null,null,0,0,0,null,null,null,null,0,0,0,null,null,null,null,1,null,null,null,1]",
+      "covered_percent": 11.904761904761903,
+      "covered_strength": 0.11904761904761904,
+      "line_counts": {
+        "missed": 111,
+        "covered": 15,
+        "total": 126
+      },
+      "name": "app/controllers/result.js"
+    },
+    {
+      "blob_id": "41864c1a51e1ae07aaac96bb3e4edac4a963d21b",
+      "coverage": "[null,null,null,1,1,1,1,1,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1,1,null,null,1,1,1,null,null,1,1,1,1,1,1,1,1,null,null,1,1,1,1,1,1,1,1,1,1,1,1,null,null,1,1,1,null,null,1,1,null,null,1,1,1,1,null,1]",
+      "covered_percent": 100,
+      "covered_strength": 1,
+      "line_counts": {
+        "missed": 0,
+        "covered": 41,
+        "total": 41
+      },
+      "name": "app/models/index.js"
+    },
+    {
+      "blob_id": "529a25ac56119669f78c0ea0b7d2ae561d713800",
+      "coverage": "[1,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,3]",
+      "covered_percent": 100,
+      "covered_strength": 2.3333333333333335,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/day.js"
+    },
+    {
+      "blob_id": "f5d41d0bda3774a13a8b5d7314e3d7b68745d158",
+      "coverage": "[1,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,2]",
+      "covered_percent": 100,
+      "covered_strength": 1.6666666666666667,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/question.js"
+    },
+    {
+      "blob_id": "502a835091cab6f0974d52999cfed4abf328aede",
+      "coverage": "[1,1,null,1,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,null,null,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,null,null,0,0,0]",
+      "covered_percent": 30,
+      "covered_strength": 0.3,
+      "line_counts": {
+        "missed": 7,
+        "covered": 3,
+        "total": 10
+      },
+      "name": "app/controllers/report.js"
+    },
+    {
+      "blob_id": "c1b1838e1132a3c3db1ff99de243df6fe1ba0619",
+      "coverage": "[1,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,2]",
+      "covered_percent": 100,
+      "covered_strength": 1.6666666666666667,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/activity.js"
+    },
+    {
+      "blob_id": "59cd7292c913f583d281cf626e4da45bfd9c8282",
+      "coverage": "[1,1,null,null,null,null,null,null,null,null,1]",
+      "covered_percent": 100,
+      "covered_strength": 1,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/routes/result.js"
+    },
+    {
+      "blob_id": "2f2a5d55c0d5ad3e1100b556ff6ad260b0c01733",
+      "coverage": "[1,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,3]",
+      "covered_percent": 100,
+      "covered_strength": 2.3333333333333335,
+      "line_counts": {
+        "missed": 0,
+        "covered": 3,
+        "total": 3
+      },
+      "name": "app/models/interview.js"
+    },
+    {
+      "blob_id": "c0dad068ceb8227e77973cd6305a6663ad61c1b5",
+      "coverage": "[1,1,null,null,1,null,null,null,null,null,null,null,1]",
+      "covered_percent": 100,
+      "covered_strength": 1,
+      "line_counts": {
+        "missed": 0,
+        "covered": 4,
+        "total": 4
+      },
+      "name": "app/routes/week.js"
+    }
+  ],
+  "repo_token": ""
+}

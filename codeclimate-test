@@ -1,0 +1,3 @@
+./cc-test-reporter format-coverage -t lcov -o "coverage/codeclimate.v1.json" "covererage/lcov.info
+
+./cc-test-reporter sum-coverage --output - --parts 1 coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input - -r $CODECLIMANTE_TEST_REPORT_ID
