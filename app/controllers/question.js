@@ -3,7 +3,7 @@ const QuestionModel = require('../models/question.js')(db.sequelize,db.Sequelize
 
 exports.update = function(req, res) {
     if(!req.params.questionId) return sendResponse(res, 400, "question's ID cannot be empty");
-    validateBody(req.body);
+    validateUpdateBody(req.body);
     updateQuestion(req).then(function(updateStatus) {
         if(updateStatus[0] === 0) return sendResponse(res, 404, "Question not found with ID " + req.params.questionId + ".");
         if(updateStatus[0] === 1) return sendResponse(res, 200, "Question with ID equals to " + req.params.questionId + " updated successfully.");
@@ -46,38 +46,25 @@ function validateUpdateBody(body) {
 }
 
 exports.create = function(req, res) {
-    // Validates mandatory parameters
-    let errors = {};
-    const body = req.body;
-    if(!body.interview_id)
-        errors['interview_id'] = 'This field is required.'
-    if(!body.event_id)
-        errors['event_id'] = 'This field is required.'
-
-    if (Object.keys(errors).length) {
-        return res.status(400).send({
-            'errors': errors
-        });
-    }
-
+    validateCreateParameters(req, res);
     try {
-        console.log('Valor de event_id: ' + body.event_id);
         const question = new QuestionModel({
-            interview_id: body.interview_id,
-            event_id: body.event_id
+            interview_id: req.body.interview_id,
+            event_id: req.body.event_id
         });
-
-        question.save()
-        .then(function(result) {
+        question.save().then(function(result) {
             res.send(result);
         }).catch(function(err) {
-            res.status(500).send({
-                'errors': err.message
-            });
+            res.status(500).send({'errors': err.message});
         }); 
     } catch(err) {
-        res.status(500).send({
-            'errors': err.message
-        });
+        res.status(500).send({'errors': err.message});
     }
 };
+
+function validateCreateParameters(req, res) {
+    let errors = {};
+    if(!req.body.interview_id) errors['interview_id'] = 'This field is required.'
+    if(!req.body.event_id) errors['event_id'] = 'This field is required.'
+    if(Object.keys(errors).length) return res.status(400).send({errors});
+}
