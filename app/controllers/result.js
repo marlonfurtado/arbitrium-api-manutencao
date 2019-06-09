@@ -7,13 +7,6 @@ const DayModel = require('../models/day.js')(db.sequelize, db.Sequelize);
 const HourModel = require('../models/hour.js')(db.sequelize, db.Sequelize);
 const ActivityPunctuationModel = require('../models/activity_punctuation.js')(db.sequelize, db.Sequelize);
 let activitiesList = []
-exports.create = function(req, res) {
-    //Do nothing;
-};
-
-exports.findAll = function(req, res) {
-    //Do nothing;
-};
 
 exports.findOne = function(req, res) {
     ResultModel.findOne({
@@ -31,74 +24,18 @@ exports.findOne = function(req, res) {
 
 exports.calcResults = async function(req, res) {
     activitiesList = []
-    // Make validations
     let isResultExists = await checkIfResultForInterviewExists(req.params.interviewId);
-    
-    // Rise if the interview ID doesn't exists
-    if(!isResultExists) {
-        return res.status(400).send({
-            message: 'No results for interview ID ' + req.params.interviewId
-        });
-    }
-
-    // Get the last result of a interview, this will be need if there's more than one result
+    if(!isResultExists) { return sendResponse(res, 400, 'No results for interview ID ' + req.params.interviewId) }
     const resultId = await getLastResultIdByInterviewId(req.params.interviewId);
-
-    // Creating object of results
-    let resultPoints = {
-        familyAcitivity: 0,
-        familyEvent: 0,
-        workAcitivity: 0,
-        workEvent: 0,
-        healthAcitivity: 150,
-        moneyAcitivity: 150
-    };
-
-    // This variable will hold the id of the last id, that will be necessary when getting the last result
-    let lastDayId = 0;
-    
-    // Get schedule of an interview
+    let resultPoints = initResultPoints();
     let schedule = await ScheduleModel.findOne( { where: { interview_id: req.params.interviewId } } );
-    
-    // Creating object of activities
     let activities = await getActivitiesByPointTypes();
-
-    
-
-    // Get weeks of a schedule
     const scheduleWeeks = await WeekModel.findAll( { where: { schedule_id: schedule.id } } );
-    for(let i = 0; i<scheduleWeeks.length; i++) {
-        // Get days of a week
-        const weekDays = await DayModel.findAll( { where: { week_id: scheduleWeeks[i].id }, raw: true } );
-
-        for(let j = 0; j<weekDays.length; j++) {
-            // Get hours of a day
-            const dayHours = await HourModel.findAll( { where: { day_id: weekDays[j].id }, raw: true } );
-            //Get number of occurance to activities
-            for(let k = 0; k<dayHours.length; k++) {
-                await addOccuranceToActivity(activities, dayHours[k].activity_id);
-            }
-
-            await evaluateDay(resultPoints, activities);
-        }
-        //  Evaluate hour
-        await evaluateHour(resultPoints, activities);
-
-        await evaluateWeek(resultPoints, activities);
-
-        lastDayId = weekDays[weekDays.length-1].id;
-    }
-    
+    let lastDayId = addOccurencesToActivitiesAndEvaluate(scheduleWeeks, activities, resultPoints);   
     await addQuestionPointsToResultPoints(resultPoints, req.params.interviewId);
-    
     await updateResult(resultPoints, req.params.interviewId, lastDayId, scheduleWeeks[scheduleWeeks.length-1].id);
-
-    // return the recalculated result
     await ResultModel.findOne({
-        where: {
-            interview_id: req.params.interviewId,
-            week_id: scheduleWeeks[scheduleWeeks.length-1].id
-        }
+        where: { interview_id: req.params.interviewId, week_id: scheduleWeeks[scheduleWeeks.length-1].id }
     }).then(function(result) {
         res.send(result);
     }).catch(function(err) {
@@ -107,9 +44,41 @@ exports.calcResults = async function(req, res) {
         });
     });
     console.log(activitiesList)
-
     checkObtainedResults()
 };
+
+function sendResponse(res, status, message) {
+    return res.status(status).send({message});
+}
+
+function initResultPoints() {
+    return {
+        familyAcitivity: 0,
+        familyEvent: 0,
+        workAcitivity: 0,
+        workEvent: 0,
+        healthAcitivity: 150,
+        moneyAcitivity: 150
+    };
+}
+
+function addOccurencesToActivitiesAndEvaluate(scheduleWeeks, activities, resultPoints) {
+    let lastDayId = 0;
+    for(let i = 0; i<scheduleWeeks.length; i++) {
+        const weekDays = await DayModel.findAll( { where: { week_id: scheduleWeeks[i].id }, raw: true } );
+        for(let j = 0; j<weekDays.length; j++) {
+            const dayHours = await HourModel.findAll( { where: { day_id: weekDays[j].id }, raw: true } );
+            for(let k = 0; k<dayHours.length; k++) {
+                await addOccuranceToActivity(activities, dayHours[k].activity_id);
+            }
+            await evaluateDay(resultPoints, activities);
+        }
+        await evaluateHour(resultPoints, activities);
+        await evaluateWeek(resultPoints, activities);
+        lastDayId = weekDays[weekDays.length-1].id;
+    }
+    return lastDayId;
+}
 
 function checkObtainedResults(){
     let len = activitiesList.length
@@ -165,7 +134,6 @@ async function getActivitiesByPointTypes() {
     return activities;
 }
 
-//evaluate type H activities (hour activities)
 async function evaluateHour(resultPoints, activities) {
 
     for(let k = 0; k<activities.hourActivities.length; k++) {
@@ -363,25 +331,14 @@ function addOccuranceToActivity(activities, activityId) {
             activities.dayActivities[a].numberOfOccurrences++;
         }
     }
-
     for(let a = 0; a<activities.weekActivities.length; a++) {
         if(activities.weekActivities[a].id === activityId) {
             activities.weekActivities[a].numberOfOccurrences++;
         }
     }
-
-    //add number of occurrence of hour activities
     for(let a = 0; a<activities.hourActivities.length; a++) {
         if(activities.hourActivities[a].id === activityId) {
             activities.hourActivities[a].numberOfOccurrences++;
         }
     }
 }
-
-exports.update = function(req, res) {
-    //Do nothing;
-};
-
-exports.delete = function(req, res) {
-    //Do nothing;
-};
