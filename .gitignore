@@ -10,3 +10,6 @@ app/config/sequelize_config.json
 *.swp
 
 vim.exe.stackdump
+
+coverage
+.nyc_output
