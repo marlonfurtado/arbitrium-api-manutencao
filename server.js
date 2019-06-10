@@ -17,115 +17,115 @@ app.use(passport.session());
 
 app.use(cors())
 
-// //Sync database
-// models.sequelize.sync().then(function () {
-//     console.log("Arbitrium database is ready.")
-//     var db = require('./app/models/index');
-//     var EventModel = require('./app/models/event.js')(db.sequelize, db.Sequelize);
-//     var events = require('./app/config/db/events')
-//     var ActivityModel = require('./app/models/activity.js')(db.sequelize, db.Sequelize);
-//     var activities = require('./app/config/db/activities')
-//     var ActivityPunctuationModel = require('./app/models/activity_punctuation.js')(db.sequelize, db.Sequelize);
-//     var activity_punctuations = require('./app/config/db/activity_punctuations')
-//     var InterviewModel = require('./app/models/interview.js')(db.sequelize, db.Sequelize);
-//     var interviews = require('./app/config/db/interviews')
-//     var ScheduleModel = require('./app/models/schedule.js')(db.sequelize, db.Sequelize);
-//     var schedules = require('./app/config/db/schedules')
-//     var WeekModel = require('./app/models/week.js')(db.sequelize, db.Sequelize);
-//     var weeks = require('./app/config/db/weeks')
-//     var DayModel = require('./app/models/day.js')(db.sequelize, db.Sequelize);
-//     var days = require('./app/config/db/days')
-//     var QuestionModel = require('./app/models/question.js')(db.sequelize, db.Sequelize);
-//     var questions = require('./app/config/db/questions')
-//     var HourModel = require('./app/models/hour.js')(db.sequelize, db.Sequelize);
-//     var hours = require('./app/config/db/hours')
-//     var ResultModel = require('./app/models/result.js')(db.sequelize, db.Sequelize);
-//     var results = require('./app/config/db/results')
+//Sync database
+models.sequelize.sync().then(function () {
+    console.log("Arbitrium database is ready.")
+    var db = require('./app/models/index');
+    var EventModel = require('./app/models/event.js')(db.sequelize, db.Sequelize);
+    var events = require('./app/config/db/events')
+    var ActivityModel = require('./app/models/activity.js')(db.sequelize, db.Sequelize);
+    var activities = require('./app/config/db/activities')
+    var ActivityPunctuationModel = require('./app/models/activity_punctuation.js')(db.sequelize, db.Sequelize);
+    var activity_punctuations = require('./app/config/db/activity_punctuations')
+    var InterviewModel = require('./app/models/interview.js')(db.sequelize, db.Sequelize);
+    var interviews = require('./app/config/db/interviews')
+    var ScheduleModel = require('./app/models/schedule.js')(db.sequelize, db.Sequelize);
+    var schedules = require('./app/config/db/schedules')
+    var WeekModel = require('./app/models/week.js')(db.sequelize, db.Sequelize);
+    var weeks = require('./app/config/db/weeks')
+    var DayModel = require('./app/models/day.js')(db.sequelize, db.Sequelize);
+    var days = require('./app/config/db/days')
+    var QuestionModel = require('./app/models/question.js')(db.sequelize, db.Sequelize);
+    var questions = require('./app/config/db/questions')
+    var HourModel = require('./app/models/hour.js')(db.sequelize, db.Sequelize);
+    var hours = require('./app/config/db/hours')
+    var ResultModel = require('./app/models/result.js')(db.sequelize, db.Sequelize);
+    var results = require('./app/config/db/results')
 
 
-//     console.log("Cleaning database before insert...")
+    console.log("Cleaning database before insert...")
 
 
-//     results.forEach(result => {
-//         ResultModel.destroy({
-//             where: { id: result.id }
-//         })
-//     });
+    results.forEach(result => {
+        ResultModel.destroy({
+            where: { id: result.id }
+        })
+    });
 
-//     questions.forEach(question => {
-//         QuestionModel.destroy({
-//             where: { id: question.id }
-//         })
-//     });
+    questions.forEach(question => {
+        QuestionModel.destroy({
+            where: { id: question.id }
+        })
+    });
 
-//     //To-do: standardize all deletions, Hour needed to be in bulk because of timeout problems
-//     var Op = db.Sequelize.Op
-//     HourModel.destroy({
-//         where: { id: {[Op.between]: [1, 1344]} }
-//     });
+    //To-do: standardize all deletions, Hour needed to be in bulk because of timeout problems
+    var Op = db.Sequelize.Op
+    HourModel.destroy({
+        where: { id: {[Op.between]: [1, 1344]} }
+    });
 
-//     days.forEach(day => {
-//         DayModel.destroy({
-//             where: { id: day.id }
-//         })
-//     });
+    days.forEach(day => {
+        DayModel.destroy({
+            where: { id: day.id }
+        })
+    });
 
-//     weeks.forEach(week => {
-//         WeekModel.destroy({
-//             where: { id: week.id }
-//         })
+    weeks.forEach(week => {
+        WeekModel.destroy({
+            where: { id: week.id }
+        })
 
-//     });
+    });
 
-//     schedules.forEach(schedule => {
-//        ScheduleModel.destroy({
-//             where: { id: schedule.id }
-//        })
-//     });
-
-
-//     interviews.forEach(interview => {
-//         InterviewModel.destroy({
-//             where: { id: interview.id }
-//         })
-//     });
+    schedules.forEach(schedule => {
+       ScheduleModel.destroy({
+            where: { id: schedule.id }
+       })
+    });
 
 
-//     activity_punctuations.forEach(activity_punctuation => {
-//         ActivityPunctuationModel.destroy({
-//             where: { id: activity_punctuation.id }
-//         })
-//     });
+    interviews.forEach(interview => {
+        InterviewModel.destroy({
+            where: { id: interview.id }
+        })
+    });
 
 
-//     activities.forEach(activity => {
-//         ActivityModel.destroy({
-//             where: { id: activity.id }
-//        })
-//     });
+    activity_punctuations.forEach(activity_punctuation => {
+        ActivityPunctuationModel.destroy({
+            where: { id: activity_punctuation.id }
+        })
+    });
 
 
-//     events.forEach(event => {
-//         EventModel.destroy({
-//             where: { id: event.id }
-//         })
-//     });
+    activities.forEach(activity => {
+        ActivityModel.destroy({
+            where: { id: activity.id }
+       })
+    });
 
 
-//     EventModel.bulkCreate(events).then(
-//     ActivityModel.bulkCreate(activities)).then(
-//     ActivityPunctuationModel.bulkCreate(activity_punctuations)).then(
-//     InterviewModel.bulkCreate(interviews)).then(
-//     ScheduleModel.bulkCreate(schedules)).then(
-//     WeekModel.bulkCreate(weeks)).then(
-//     DayModel.bulkCreate(days)).then(
-//     QuestionModel.bulkCreate(questions)).then(
-//     HourModel.bulkCreate(hours)).then(
-//     ResultModel.bulkCreate(results))
+    events.forEach(event => {
+        EventModel.destroy({
+            where: { id: event.id }
+        })
+    });
 
-// }).catch(function (err) {
-//     console.log(err, "Something went wrong while creating arbitrium database.")
-// });
+
+    EventModel.bulkCreate(events).then(
+    ActivityModel.bulkCreate(activities)).then(
+    ActivityPunctuationModel.bulkCreate(activity_punctuations)).then(
+    InterviewModel.bulkCreate(interviews)).then(
+    ScheduleModel.bulkCreate(schedules)).then(
+    WeekModel.bulkCreate(weeks)).then(
+    DayModel.bulkCreate(days)).then(
+    QuestionModel.bulkCreate(questions)).then(
+    HourModel.bulkCreate(hours)).then(
+    ResultModel.bulkCreate(results))
+
+}).catch(function (err) {
+    console.log(err, "Something went wrong while creating arbitrium database.")
+});
 
 // Default route
 app.get('/', function(req, res) {
